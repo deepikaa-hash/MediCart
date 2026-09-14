@@ -1,535 +1,276 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- =========================
+     PAYMENT METHOD
+========================= -->
 
-<head>
+<div class="checkout-card">
 
-    <meta charset="UTF-8">
+    <div class="card-title">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Checkout - MedEase</title>
-
-    <link rel="stylesheet"
-          href="checkout.css">
-
-</head>
-
-
-<body>
-
-
-    <!-- =========================
-         NAVBAR
-    ========================== -->
-
-    <header>
-
-        <nav class="navbar">
-
-            <a href="index.html"
-               class="logo">
-
-                <span>✚</span>
-                MedEase
-
-            </a>
-
-
-            <div class="checkout-title">
-
-                Secure Checkout 🔒
-
-            </div>
-
-
-            <a href="medicines.html"
-               class="back-link">
-
-                ← Back to Medicines
-
-            </a>
-
-        </nav>
-
-    </header>
-
-
-
-    <!-- =========================
-         MAIN CHECKOUT PAGE
-    ========================== -->
-
-    <main class="checkout-page">
-
-
-        <!-- PAGE HEADING -->
-
-        <div class="page-heading">
-
-            <p>ORDER PLACEMENT</p>
-
-            <h1>
-                Complete your order
-            </h1>
-
-            <span>
-                Enter your delivery details and
-                choose your preferred payment method.
-            </span>
-
+        <div class="step-number">
+            2
         </div>
 
-
-
-        <!-- CHECKOUT LAYOUT -->
-
-        <div class="checkout-layout">
-
-
-            <!-- =========================
-                 LEFT SIDE
-            ========================== -->
-
-            <section class="checkout-form">
-
-
-                <!-- =========================
-                     DELIVERY ADDRESS
-                ========================== -->
-
-                <div class="checkout-card">
-
-
-                    <div class="card-title">
-
-                        <div class="step-number">
-                            1
-                        </div>
-
-
-                        <div>
-
-                            <h2>
-                                Delivery Address
-                            </h2>
-
-                            <p>
-                                Where should we deliver your order?
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="form-grid">
-
-
-                        <!-- FULL NAME -->
-
-                        <div class="input-group">
-
-                            <label for="fullName">
-                                Full Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="fullName"
-                                placeholder="Enter your full name"
-                                autocomplete="name"
-                            >
-
-                        </div>
-
-
-
-                        <!-- PHONE -->
-
-                        <div class="input-group">
-
-                            <label for="phone">
-                                Phone Number
-                            </label>
-
-                            <input
-                                type="tel"
-                                id="phone"
-                                placeholder="Enter your 10-digit phone number"
-                                maxlength="10"
-                                inputmode="numeric"
-                                autocomplete="tel"
-                            >
-
-                        </div>
-
-
-
-                        <!-- ADDRESS -->
-
-                        <div class="input-group full-width">
-
-                            <label for="address">
-                                Address
-                            </label>
-
-                            <textarea
-                                id="address"
-                                placeholder="House No, Street, Area"
-                                rows="3"
-                            ></textarea>
-
-                        </div>
-
-
-
-                        <!-- CITY -->
-
-                        <div class="input-group">
-
-                            <label for="city">
-                                City
-                            </label>
-
-                            <input
-                                type="text"
-                                id="city"
-                                placeholder="Enter city"
-                                autocomplete="address-level2"
-                            >
-
-                        </div>
-
-
-
-                        <!-- PINCODE -->
-
-                        <div class="input-group">
-
-                            <label for="pincode">
-                                Pincode
-                            </label>
-
-                            <input
-                                type="text"
-                                id="pincode"
-                                placeholder="6-digit pincode"
-                                maxlength="6"
-                                inputmode="numeric"
-                                autocomplete="postal-code"
-                            >
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- =========================
-                     PAYMENT METHOD
-                ========================== -->
-
-                <div class="checkout-card">
-
-
-                    <div class="card-title">
-
-                        <div class="step-number">
-                            2
-                        </div>
-
-
-                        <div>
-
-                            <h2>
-                                Payment Method
-                            </h2>
-
-                            <p>
-                                Select how you want to pay.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="payment-options">
-
-
-                        <!-- CASH ON DELIVERY -->
-
-                        <label class="payment-option">
-
-                            <input
-                                type="radio"
-                                name="payment"
-                                value="cod"
-                                checked
-                            >
-
-                            <div>
-
-                                <strong>
-                                    💵 Cash on Delivery
-                                </strong>
-
-                                <span>
-                                    Pay when your order arrives
-                                </span>
-
-                            </div>
-
-                        </label>
-
-
-
-                        <!-- UPI -->
-
-                        <label class="payment-option">
-
-                            <input
-                                type="radio"
-                                name="payment"
-                                value="upi"
-                            >
-
-                            <div>
-
-                                <strong>
-                                    📱 UPI
-                                </strong>
-
-                                <span>
-                                    Pay using your UPI app
-                                </span>
-
-                            </div>
-
-                        </label>
-
-
-
-                        <!-- CARD -->
-
-                        <label class="payment-option">
-
-                            <input
-                                type="radio"
-                                name="payment"
-                                value="card"
-                            >
-
-                            <div>
-
-                                <strong>
-                                    💳 Card
-                                </strong>
-
-                                <span>
-                                    Credit or debit card
-                                </span>
-
-                            </div>
-
-                        </label>
-
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- =========================
-                     PLACE ORDER BUTTON
-                ========================== -->
-
-                <button
-                    type="button"
-                    id="placeOrder"
-                    class="place-order-btn">
-
-                    Place Order
-
-                </button>
-
-
-            </section>
-
-
-
-            <!-- =========================
-                 RIGHT SIDE
-            ========================== -->
-
-            <aside class="order-summary">
-
-
-                <div class="summary-card">
-
-
-                    <h2>
-                        Order Summary
-                    </h2>
-
-
-
-                    <!-- PRODUCTS -->
-
-                    <div
-                        id="summaryItems"
-                        class="summary-items">
-
-                        <p>
-                            Loading cart...
-                        </p>
-
-                    </div>
-
-
-
-                    <!-- SUBTOTAL -->
-
-                    <div class="summary-line">
-
-                        <span>
-                            Subtotal
-                        </span>
-
-                        <strong id="subtotal">
-                            ₹0
-                        </strong>
-
-                    </div>
-
-
-
-                    <!-- DELIVERY -->
-
-                    <div class="summary-line">
-
-                        <span>
-                            Delivery
-                        </span>
-
-                        <strong id="delivery">
-                            ₹0
-                        </strong>
-
-                    </div>
-
-
-
-                    <!-- TOTAL -->
-
-                    <div class="summary-line total">
-
-                        <span>
-                            Total
-                        </span>
-
-                        <strong id="total">
-                            ₹0
-                        </strong>
-
-                    </div>
-
-
-
-                    <!-- SECURITY NOTE -->
-
-                    <div class="secure-note">
-
-                        🔒
-
-                        <span>
-                            Your information is securely handled.
-                        </span>
-
-                    </div>
-
-
-                </div>
-
-
-            </aside>
-
-
-        </div>
-
-    </main>
-
-
-
-    <!-- =========================
-         SUCCESS MODAL
-    ========================== -->
-
-    <div
-        class="success-overlay"
-        id="successOverlay"
-        style="display: none;">
-
-
-        <div class="success-modal">
-
-
-            <div class="success-icon">
-                ✓
-            </div>
-
+        <div>
 
             <h2>
-                Order Placed! 🎉
+                Payment Method
             </h2>
 
-
             <p>
-                Your order has been successfully placed.
-                Thank you for choosing MedEase.
+                Select how you want to pay.
             </p>
-
-
-            <div class="order-number">
-
-                Order ID:
-
-                <strong id="orderId">
-                    MED000000
-                </strong>
-
-            </div>
-
-
-            <button
-                type="button"
-                id="continueShopping">
-
-                Continue Shopping
-
-            </button>
-
 
         </div>
 
     </div>
 
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
-
-    <script src="checkout.js"></script>
+    <div class="payment-options">
 
 
-</body>
+        <!-- CASH ON DELIVERY -->
 
-</html>
+        <label class="payment-option">
+
+            <input
+                type="radio"
+                name="payment"
+                value="cod"
+                checked
+            >
+
+            <div>
+
+                <strong>
+                    💵 Cash on Delivery
+                </strong>
+
+                <span>
+                    Pay when your order arrives
+                </span>
+
+            </div>
+
+        </label>
+
+
+        <!-- UPI -->
+
+        <label class="payment-option">
+
+            <input
+                type="radio"
+                name="payment"
+                value="upi"
+            >
+
+            <div>
+
+                <strong>
+                    📱 UPI
+                </strong>
+
+                <span>
+                    Pay using your UPI app
+                </span>
+
+            </div>
+
+        </label>
+
+
+        <!-- CARD -->
+
+        <label class="payment-option">
+
+            <input
+                type="radio"
+                name="payment"
+                value="card"
+            >
+
+            <div>
+
+                <strong>
+                    💳 Card
+                </strong>
+
+                <span>
+                    Credit or debit card
+                </span>
+
+            </div>
+
+        </label>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     DEMO PAYMENT SECTION
+========================= -->
+
+<div
+    class="checkout-card"
+    id="paymentDetails"
+    style="display: none;">
+
+    <div class="card-title">
+
+        <div class="step-number">
+            3
+        </div>
+
+        <div>
+
+            <h2>
+                Payment Details
+            </h2>
+
+            <p id="paymentDescription">
+                Complete your payment.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- UPI PAYMENT -->
+
+    <div
+        id="upiPayment"
+        class="payment-detail-box"
+        style="display: none;">
+
+        <label>
+            UPI ID
+        </label>
+
+        <input
+            type="text"
+            id="upiId"
+            placeholder="example@upi"
+        >
+
+        <p>
+            Demo payment — no real transaction will be made.
+        </p>
+
+    </div>
+
+
+    <!-- CARD PAYMENT -->
+
+    <div
+        id="cardPayment"
+        class="payment-detail-box"
+        style="display: none;">
+
+        <div class="form-grid">
+
+            <div class="input-group full-width">
+
+                <label>
+                    Card Number
+                </label>
+
+                <input
+                    type="text"
+                    id="cardNumber"
+                    placeholder="1234 5678 9012 3456"
+                    maxlength="19"
+                    inputmode="numeric"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Expiry Date
+                </label>
+
+                <input
+                    type="text"
+                    id="expiry"
+                    placeholder="MM/YY"
+                    maxlength="5"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    CVV
+                </label>
+
+                <input
+                    type="password"
+                    id="cvv"
+                    placeholder="123"
+                    maxlength="3"
+                    inputmode="numeric"
+                >
+
+            </div>
+
+        </div>
+
+        <p>
+            Demo payment — do not enter real card details.
+        </p>
+
+    </div>
+
+
+    <!-- COD -->
+
+    <div
+        id="codPayment"
+        class="payment-detail-box">
+
+        <div class="cod-message">
+
+            💵
+
+            <div>
+
+                <strong>
+                    Cash on Delivery
+                </strong>
+
+                <p>
+                    You can pay when your medicine
+                    order arrives at your doorstep.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     PLACE ORDER
+========================= -->
+
+<button
+    type="button"
+    id="placeOrder"
+    class="place-order-btn">
+
+    Place Order
+
+</button>
