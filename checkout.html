@@ -1,276 +1,1253 @@
-<!-- =========================
-     PAYMENT METHOD
-========================= -->
+<!DOCTYPE html>
 
-<div class="checkout-card">
+<html lang="en">
 
-    <div class="card-title">
+<head>
 
-        <div class="step-number">
-            2
-        </div>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>MedEase - Checkout</title>
+
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+
+    body {
+        background: #f5faf7;
+        color: #222;
+    }
+
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        background: white;
+        padding: 18px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+
+    .logo {
+        color: #1b8a5a;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+
+    .back-btn {
+        text-decoration: none;
+        color: #1b8a5a;
+        font-weight: bold;
+    }
+
+
+    /* ================= CONTAINER ================= */
+
+    .checkout-container {
+        width: 88%;
+        max-width: 1100px;
+        margin: 45px auto;
+    }
+
+
+    .checkout-container > h1 {
+        text-align: center;
+        color: #146c43;
+        margin-bottom: 35px;
+    }
+
+
+    .checkout-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 30px;
+        align-items: start;
+    }
+
+
+    /* ================= CHECKOUT CARD ================= */
+
+    .checkout-card {
+        background: white;
+        padding: 28px;
+        border-radius: 14px;
+        margin-bottom: 22px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    }
+
+
+    .card-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+
+    .step-number {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #1b8a5a;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+
+    .card-title h2 {
+        color: #146c43;
+        margin-bottom: 5px;
+    }
+
+
+    .card-title p {
+        color: #777;
+        font-size: 14px;
+    }
+
+
+    /* ================= FORM ================= */
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+
+    .form-group label,
+    .input-group label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: bold;
+    }
+
+
+    .form-group input,
+    .form-group textarea,
+    .input-group input,
+    .payment-detail-box input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 7px;
+        font-size: 15px;
+        outline: none;
+    }
+
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .input-group input:focus,
+    .payment-detail-box input:focus {
+        border-color: #1b8a5a;
+    }
+
+
+    .form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+
+    /* ================= PAYMENT OPTIONS ================= */
+
+    .payment-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+
+    .payment-option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+
+    .payment-option:hover {
+        border-color: #1b8a5a;
+        background: #f7fcf9;
+    }
+
+
+    .payment-option input {
+        accent-color: #1b8a5a;
+    }
+
+
+    .payment-option strong {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+
+    .payment-option span {
+        display: block;
+        color: #777;
+        font-size: 13px;
+    }
+
+
+    /* ================= PAYMENT DETAILS ================= */
+
+    .payment-detail-box {
+        margin-top: 20px;
+        padding: 18px;
+        background: #f7fcf9;
+        border-radius: 10px;
+    }
+
+
+    .payment-detail-box > p {
+        margin-top: 12px;
+        color: #777;
+        font-size: 13px;
+    }
+
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+
+    .cod-message {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        font-size: 28px;
+    }
+
+
+    .cod-message strong {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+
+    .cod-message p {
+        font-size: 14px;
+        color: #666;
+    }
+
+
+    /* ================= ORDER SUMMARY ================= */
+
+    .order-summary {
+        background: white;
+        padding: 28px;
+        border-radius: 14px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        position: sticky;
+        top: 20px;
+    }
+
+
+    .order-summary h2 {
+        color: #146c43;
+        margin-bottom: 20px;
+    }
+
+
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+        gap: 15px;
+    }
+
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+
+    .total {
+        border-top: 1px solid #ddd;
+        padding-top: 18px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+
+    /* ================= PLACE ORDER ================= */
+
+    .place-order-btn {
+        width: 100%;
+        padding: 14px;
+        margin-top: 25px;
+        border: none;
+        border-radius: 8px;
+        background: #1b8a5a;
+        color: white;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+
+    .place-order-btn:hover {
+        background: #146c43;
+    }
+
+
+    .place-order-btn:disabled {
+        background: #aaa;
+        cursor: not-allowed;
+    }
+
+
+    .error-message {
+        color: #dc3545;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+
+    .demo-note {
+        margin-top: 12px;
+        font-size: 12px;
+        color: #777;
+        text-align: center;
+    }
+
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 750px) {
+
+        .checkout-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .navbar {
+            padding: 15px 5%;
+        }
+
+
+        .checkout-container {
+            width: 92%;
+        }
+
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .full-width {
+            grid-column: auto;
+        }
+
+
+        .order-summary {
+            position: static;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        ✚ MedEase
+    </div>
+
+
+    <a
+        href="cart.html"
+        class="back-btn">
+
+        ← Back to Cart
+
+    </a>
+
+</nav>
+
+
+
+<!-- ================= CHECKOUT ================= -->
+
+<main class="checkout-container">
+
+    <h1>
+        Checkout
+    </h1>
+
+
+    <div class="checkout-grid">
+
+
+        <!-- ================= LEFT SIDE ================= -->
 
         <div>
 
+
+            <!-- CUSTOMER DETAILS -->
+
+            <div class="checkout-card">
+
+                <div class="card-title">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Customer Details
+                        </h2>
+
+                        <p>
+                            Enter your delivery information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form id="checkoutForm">
+
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Enter your full name"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="Enter your phone number"
+                            maxlength="10"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="address">
+                            Delivery Address
+                        </label>
+
+                        <textarea
+                            id="address"
+                            placeholder="Enter your complete delivery address"
+                            required></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="city">
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            placeholder="Enter your city"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="pincode">
+                            Pincode
+                        </label>
+
+                        <input
+                            type="text"
+                            id="pincode"
+                            placeholder="Enter pincode"
+                            maxlength="6"
+                            required>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+
+
+            <!-- ================= PAYMENT METHOD ================= -->
+
+            <div class="checkout-card">
+
+                <div class="card-title">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Payment Method
+                        </h2>
+
+                        <p>
+                            Select how you want to pay.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="payment-options">
+
+
+                    <!-- COD -->
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="cod"
+                            checked>
+
+                        <div>
+
+                            <strong>
+                                💵 Cash on Delivery
+                            </strong>
+
+                            <span>
+                                Pay when your order arrives
+                            </span>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <!-- UPI -->
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="upi">
+
+                        <div>
+
+                            <strong>
+                                📱 UPI
+                            </strong>
+
+                            <span>
+                                Demo payment using UPI
+                            </span>
+
+                        </div>
+
+                    </label>
+
+
+
+                    <!-- CARD -->
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="card">
+
+                        <div>
+
+                            <strong>
+                                💳 Card
+                            </strong>
+
+                            <span>
+                                Demo credit or debit card
+                            </span>
+
+                        </div>
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PAYMENT DETAILS ================= -->
+
+            <div
+                class="checkout-card"
+                id="paymentDetails">
+
+
+                <div class="card-title">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Payment Details
+                        </h2>
+
+                        <p id="paymentDescription">
+                            Cash on Delivery selected.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- COD -->
+
+                <div
+                    id="codPayment"
+                    class="payment-detail-box">
+
+
+                    <div class="cod-message">
+
+                        <div>
+                            💵
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Cash on Delivery
+                            </strong>
+
+                            <p>
+                                Pay when your medicine
+                                order arrives at your doorstep.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- UPI -->
+
+                <div
+                    id="upiPayment"
+                    class="payment-detail-box"
+                    style="display: none;">
+
+
+                    <label for="upiId">
+                        UPI ID
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="upiId"
+                        placeholder="example@upi">
+
+
+                    <p>
+                        Demo payment only.
+                        No real transaction will be made.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD -->
+
+                <div
+                    id="cardPayment"
+                    class="payment-detail-box"
+                    style="display: none;">
+
+
+                    <div class="form-grid">
+
+
+                        <div class="input-group full-width">
+
+                            <label>
+                                Demo Card Number
+                            </label>
+
+                            <input
+                                type="text"
+                                id="cardNumber"
+                                placeholder="XXXX XXXX XXXX XXXX"
+                                maxlength="19"
+                                inputmode="numeric">
+
+                        </div>
+
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Expiry Date
+                            </label>
+
+                            <input
+                                type="text"
+                                id="expiry"
+                                placeholder="MM/YY"
+                                maxlength="5">
+
+                        </div>
+
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Demo CVV
+                            </label>
+
+                            <input
+                                type="password"
+                                id="cvv"
+                                placeholder="XXX"
+                                maxlength="3"
+                                inputmode="numeric">
+
+                        </div>
+
+
+                    </div>
+
+
+                    <p>
+                        Demo payment only.
+                        Do not enter real card details.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= RIGHT SIDE ================= -->
+
+        <div class="order-summary">
+
+
             <h2>
-                Payment Method
+                Order Summary
             </h2>
 
-            <p>
-                Select how you want to pay.
+
+            <div id="orderItems"></div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <span>
+                    FREE
+                </span>
+
+            </div>
+
+
+            <div class="summary-row total">
+
+                <span>
+                    Total
+                </span>
+
+                <span id="orderTotal">
+                    ₹0
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="placeOrder"
+                class="place-order-btn">
+
+                Place Order
+
+            </button>
+
+
+            <p
+                class="error-message"
+                id="errorMessage">
+            </p>
+
+
+            <p class="demo-note">
+                🔒 Secure demo checkout
             </p>
 
         </div>
 
-    </div>
-
-
-    <div class="payment-options">
-
-
-        <!-- CASH ON DELIVERY -->
-
-        <label class="payment-option">
-
-            <input
-                type="radio"
-                name="payment"
-                value="cod"
-                checked
-            >
-
-            <div>
-
-                <strong>
-                    💵 Cash on Delivery
-                </strong>
-
-                <span>
-                    Pay when your order arrives
-                </span>
-
-            </div>
-
-        </label>
-
-
-        <!-- UPI -->
-
-        <label class="payment-option">
-
-            <input
-                type="radio"
-                name="payment"
-                value="upi"
-            >
-
-            <div>
-
-                <strong>
-                    📱 UPI
-                </strong>
-
-                <span>
-                    Pay using your UPI app
-                </span>
-
-            </div>
-
-        </label>
-
-
-        <!-- CARD -->
-
-        <label class="payment-option">
-
-            <input
-                type="radio"
-                name="payment"
-                value="card"
-            >
-
-            <div>
-
-                <strong>
-                    💳 Card
-                </strong>
-
-                <span>
-                    Credit or debit card
-                </span>
-
-            </div>
-
-        </label>
-
 
     </div>
 
-</div>
+</main>
 
 
 
-<!-- =========================
-     DEMO PAYMENT SECTION
-========================= -->
+<!-- ================= JAVASCRIPT ================= -->
 
-<div
-    class="checkout-card"
-    id="paymentDetails"
-    style="display: none;">
-
-    <div class="card-title">
-
-        <div class="step-number">
-            3
-        </div>
-
-        <div>
-
-            <h2>
-                Payment Details
-            </h2>
-
-            <p id="paymentDescription">
-                Complete your payment.
-            </p>
-
-        </div>
-
-    </div>
+<script>
 
 
-    <!-- UPI PAYMENT -->
+    /* ================================
+       GET CART
+    ================================ */
 
-    <div
-        id="upiPayment"
-        class="payment-detail-box"
-        style="display: none;">
-
-        <label>
-            UPI ID
-        </label>
-
-        <input
-            type="text"
-            id="upiId"
-            placeholder="example@upi"
-        >
-
-        <p>
-            Demo payment — no real transaction will be made.
-        </p>
-
-    </div>
+    let cart =
+        JSON.parse(
+            localStorage.getItem("medeaseCart")
+        ) || [];
 
 
-    <!-- CARD PAYMENT -->
+    const orderItems =
+        document.getElementById("orderItems");
 
-    <div
-        id="cardPayment"
-        class="payment-detail-box"
-        style="display: none;">
+    const orderTotal =
+        document.getElementById("orderTotal");
 
-        <div class="form-grid">
+    const errorMessage =
+        document.getElementById("errorMessage");
 
-            <div class="input-group full-width">
+    const checkoutForm =
+        document.getElementById("checkoutForm");
 
-                <label>
-                    Card Number
-                </label>
-
-                <input
-                    type="text"
-                    id="cardNumber"
-                    placeholder="1234 5678 9012 3456"
-                    maxlength="19"
-                    inputmode="numeric"
-                >
-
-            </div>
+    const placeOrder =
+        document.getElementById("placeOrder");
 
 
-            <div class="input-group">
 
-                <label>
-                    Expiry Date
-                </label>
+    /* ================================
+       DISPLAY ORDER
+    ================================ */
 
-                <input
-                    type="text"
-                    id="expiry"
-                    placeholder="MM/YY"
-                    maxlength="5"
-                >
+    function displayOrder() {
 
-            </div>
+        orderItems.innerHTML = "";
+
+        let total = 0;
 
 
-            <div class="input-group">
+        if (cart.length === 0) {
 
-                <label>
-                    CVV
-                </label>
-
-                <input
-                    type="password"
-                    id="cvv"
-                    placeholder="123"
-                    maxlength="3"
-                    inputmode="numeric"
-                >
-
-            </div>
-
-        </div>
-
-        <p>
-            Demo payment — do not enter real card details.
-        </p>
-
-    </div>
-
-
-    <!-- COD -->
-
-    <div
-        id="codPayment"
-        class="payment-detail-box">
-
-        <div class="cod-message">
-
-            💵
-
-            <div>
-
-                <strong>
-                    Cash on Delivery
-                </strong>
+            orderItems.innerHTML = `
 
                 <p>
-                    You can pay when your medicine
-                    order arrives at your doorstep.
+                    Your cart is empty.
                 </p>
 
-            </div>
+            `;
 
-        </div>
+            orderTotal.innerText = "₹0";
 
-    </div>
+            placeOrder.disabled = true;
 
-</div>
+            return;
+
+        }
+
+
+        cart.forEach(function (item) {
+
+            const itemTotal =
+                item.price * item.quantity;
+
+
+            total += itemTotal;
+
+
+            const itemElement =
+                document.createElement("div");
+
+
+            itemElement.className =
+                "order-item";
+
+
+            itemElement.innerHTML = `
+
+                <span>
+                    ${item.name}
+                    × ${item.quantity}
+                </span>
+
+                <strong>
+                    ₹${itemTotal}
+                </strong>
+
+            `;
+
+
+            orderItems.appendChild(
+                itemElement
+            );
+
+        });
+
+
+        orderTotal.innerText =
+            "₹" + total;
+
+    }
 
 
 
-<!-- =========================
-     PLACE ORDER
-========================= -->
+    /* ================================
+       PAYMENT METHOD
+    ================================ */
 
-<button
-    type="button"
-    id="placeOrder"
-    class="place-order-btn">
+    const paymentOptions =
+        document.querySelectorAll(
+            'input[name="payment"]'
+        );
 
-    Place Order
 
-</button>
+    const codPayment =
+        document.getElementById(
+            "codPayment"
+        );
+
+    const upiPayment =
+        document.getElementById(
+            "upiPayment"
+        );
+
+    const cardPayment =
+        document.getElementById(
+            "cardPayment"
+        );
+
+    const paymentDescription =
+        document.getElementById(
+            "paymentDescription"
+        );
+
+
+    paymentOptions.forEach(
+        function (option) {
+
+            option.addEventListener(
+                "change",
+                function () {
+
+                    const selected =
+                        this.value;
+
+
+                    codPayment.style.display =
+                        "none";
+
+                    upiPayment.style.display =
+                        "none";
+
+                    cardPayment.style.display =
+                        "none";
+
+
+                    if (selected === "cod") {
+
+                        codPayment.style.display =
+                            "block";
+
+                        paymentDescription.innerText =
+                            "Cash on Delivery selected.";
+
+                    }
+
+
+                    if (selected === "upi") {
+
+                        upiPayment.style.display =
+                            "block";
+
+                        paymentDescription.innerText =
+                            "Enter your demo UPI ID.";
+
+                    }
+
+
+                    if (selected === "card") {
+
+                        cardPayment.style.display =
+                            "block";
+
+                        paymentDescription.innerText =
+                            "Enter demo card details.";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* ================================
+       PLACE ORDER
+    ================================ */
+
+    placeOrder.addEventListener(
+        "click",
+        function () {
+
+
+            /* Check customer details */
+
+            if (!checkoutForm.checkValidity()) {
+
+                checkoutForm.reportValidity();
+
+                return;
+
+            }
+
+
+            /* Check cart */
+
+            if (cart.length === 0) {
+
+                errorMessage.innerText =
+                    "Your cart is empty.";
+
+                return;
+
+            }
+
+
+            /* Get selected payment */
+
+            const selectedPayment =
+                document.querySelector(
+                    'input[name="payment"]:checked'
+                ).value;
+
+
+            /* Generate Order ID */
+
+            const orderId =
+                "ME" +
+                Date.now()
+                    .toString()
+                    .slice(-6);
+
+
+            /* Calculate total */
+
+            let total = 0;
+
+
+            cart.forEach(function (item) {
+
+                total +=
+                    item.price *
+                    item.quantity;
+
+            });
+
+
+            /* Payment name */
+
+            let paymentName;
+
+
+            if (selectedPayment === "cod") {
+
+                paymentName =
+                    "Cash on Delivery";
+
+            } else if (
+                selectedPayment === "upi"
+            ) {
+
+                paymentName =
+                    "UPI";
+
+            } else {
+
+                paymentName =
+                    "Card";
+
+            }
+
+
+            /* ================================
+               SAVE ORDER
+            ================================ */
+
+            const orderDetails = {
+
+                orderId: orderId,
+
+                customerName:
+                    document.getElementById(
+                        "fullName"
+                    ).value,
+
+                phone:
+                    document.getElementById(
+                        "phone"
+                    ).value,
+
+                address:
+                    document.getElementById(
+                        "address"
+                    ).value,
+
+                city:
+                    document.getElementById(
+                        "city"
+                    ).value,
+
+                pincode:
+                    document.getElementById(
+                        "pincode"
+                    ).value,
+
+                paymentMethod:
+                    paymentName,
+
+                items: cart,
+
+                total: total,
+
+                status:
+                    "Order Placed",
+
+                date:
+                    new Date().toLocaleString()
+
+            };
+
+
+            localStorage.setItem(
+
+                "medeaseOrder",
+
+                JSON.stringify(
+                    orderDetails
+                )
+
+            );
+
+
+            /* Clear cart */
+
+            localStorage.removeItem(
+                "medeaseCart"
+            );
+
+
+            /* Go to success page */
+
+            window.location.href =
+                "order-success.html";
+
+        }
+    );
+
+
+
+    /* ================================
+       INITIAL LOAD
+    ================================ */
+
+    displayOrder();
+
+</script>
+
+</body>
+
+</html>
