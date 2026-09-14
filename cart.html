@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>MedEase - Cart</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+    .cart-page {
+        max-width: 1100px;
+        margin: auto;
+        padding: 70px 30px;
+        min-height: 70vh;
+    }
+
+    .cart-title {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .cart-title p {
+        color: #126b45;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .cart-title h1 {
+        font-size: 40px;
+        margin-top: 8px;
+    }
+
+    .cart-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 25px;
+    }
+
+    .cart-items,
+    .cart-summary {
+        background: white;
+        border: 1px solid #e7eee9;
+        border-radius: 18px;
+        padding: 25px;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 18px 0;
+        border-bottom: 1px solid #edf1ee;
+    }
+
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+
+    .cart-product {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .cart-product-icon {
+        width: 65px;
+        height: 65px;
+        border-radius: 12px;
+        background: #edf6f0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 30px;
+    }
+
+    .cart-product h3 {
+        font-size: 17px;
+        margin-bottom: 4px;
+    }
+
+    .cart-product p {
+        color: #78827c;
+        font-size: 13px;
+    }
+
+    .cart-price {
+        color: #126b45;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .remove-btn {
+        border: none;
+        background: #fff0f0;
+        color: #c0392b;
+        padding: 7px 10px;
+        border-radius: 7px;
+        font-size: 12px;
+    }
+
+    .summary-title {
+        font-size: 22px;
+        margin-bottom: 25px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        color: #657169;
+    }
+
+    .summary-total {
+        display: flex;
+        justify-content: space-between;
+
+        padding-top: 18px;
+        margin-top: 18px;
+
+        border-top: 1px solid #e5ebe7;
+
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .summary-total span:last-child {
+        color: #126b45;
+    }
+
+    .checkout-btn {
+        width: 100%;
+        margin-top: 25px;
+
+        padding: 14px;
+
+        border: none;
+        border-radius: 9px;
+
+        background: #126b45;
+        color: white;
+
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .checkout-btn:hover {
+        background: #0d5536;
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 50px 20px;
+        color: #78827c;
+    }
+
+    .empty-cart-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .continue-btn {
+        display: inline-block;
+        margin-top: 20px;
+
+        padding: 12px 20px;
+
+        border-radius: 8px;
+
+        background: #edf6f0;
+        color: #126b45;
+
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    @media (max-width: 750px) {
+
+        .cart-container {
+            grid-template-columns: 1fr;
+        }
+
+        .cart-page {
+            padding: 50px 20px;
+        }
+
+        .cart-title h1 {
+            font-size: 32px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- NAVBAR -->
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span>✚</span> MedEase
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#medicines">
+                Medicines
+            </a>
+
+            <a href="index.html#categories">
+                Categories
+            </a>
+
+            <a href="index.html#prescription">
+                Prescription
+            </a>
+
+        </div>
+
+        <div class="nav-buttons">
+
+            <button class="cart-btn">
+                🛒 Cart
+            </button>
+
+            <button class="login-btn">
+                Login
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- CART PAGE -->
+
+<main class="cart-page">
+
+
+    <div class="cart-title">
+
+        <p>YOUR ORDER</p>
+
+        <h1>Shopping Cart 🛒</h1>
+
+    </div>
+
+
+    <div class="cart-container">
+
+
+        <!-- CART ITEMS -->
+
+        <div class="cart-items">
+
+            <div class="cart-item">
+
+                <div class="cart-product">
+
+                    <div class="cart-product-icon">
+                        💊
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Paracetamol
+                        </h3>
+
+                        <p>
+                            500 mg Tablets
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="cart-price">
+                    ₹25
+                </div>
+
+                <button class="remove-btn">
+                    Remove
+                </button>
+
+            </div>
+
+
+            <div class="cart-item">
+
+                <div class="cart-product">
+
+                    <div class="cart-product-icon">
+                        💊
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Vitamin C
+                        </h3>
+
+                        <p>
+                            Health Supplement
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="cart-price">
+                    ₹120
+                </div>
+
+                <button class="remove-btn">
+                    Remove
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <div class="cart-summary">
+
+            <h2 class="summary-title">
+                Order Summary
+            </h2>
+
+            <div class="summary-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <span>
+                    ₹145
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <span>
+                    Free
+                </span>
+
+            </div>
+
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <span>
+                    ₹145
+                </span>
+
+            </div>
+
+
+            <button
+                class="checkout-btn"
+                id="checkoutBtn">
+
+                Proceed to Checkout
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+
+            <h2>
+                ✚ MedEase
+            </h2>
+
+            <p>
+                Making healthcare accessible,
+                simple and convenient.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#medicines">
+                Medicines
+            </a>
+
+            <a href="index.html#categories">
+                Categories
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Contact
+            </h3>
+
+            <p>
+                📧 support@medease.com
+            </p>
+
+            <p>
+                📞 +91 98765 43210
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 MedEase.
+        All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    const removeButtons =
+        document.querySelectorAll(".remove-btn");
+
+    removeButtons.forEach(function(button) {
+
+        button.addEventListener("click", function() {
+
+            const item =
+                button.closest(".cart-item");
+
+            item.remove();
+
+        });
+
+    });
+
+
+    const checkoutButton =
+        document.getElementById("checkoutBtn");
+
+    checkoutButton.addEventListener(
+        "click",
+        function() {
+
+            alert(
+                "Checkout page coming next! 💊"
+            );
+
+        }
+    );
+
+</script>
+```
+
+</body>
+
+</html>
