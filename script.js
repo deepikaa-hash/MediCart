@@ -41,19 +41,15 @@ CART BUTTON
 
 cartButton.addEventListener("click", function () {
 
-if (cartCount === 0) {
+    if (cartCount === 0) {
 
-    alert("Your cart is empty.");
+        alert("Your cart is empty.");
 
-} else {
+    } else {
 
-    alert(
-        "🛒 You have " +
-        cartCount +
-        " item(s) in your cart."
-    );
+        window.location.href = "cart.html";
 
-}
+    }
 
 });
 
