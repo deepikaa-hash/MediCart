@@ -57,11 +57,13 @@
 
 
     <!-- =========================
-         PAGE
+         MAIN CHECKOUT PAGE
     ========================== -->
 
     <main class="checkout-page">
 
+
+        <!-- PAGE HEADING -->
 
         <div class="page-heading">
 
@@ -80,6 +82,8 @@
 
 
 
+        <!-- CHECKOUT LAYOUT -->
+
         <div class="checkout-layout">
 
 
@@ -90,15 +94,19 @@
             <section class="checkout-form">
 
 
-                <!-- Delivery Address -->
+                <!-- =========================
+                     DELIVERY ADDRESS
+                ========================== -->
 
                 <div class="checkout-card">
+
 
                     <div class="card-title">
 
                         <div class="step-number">
                             1
                         </div>
+
 
                         <div>
 
@@ -115,12 +123,15 @@
                     </div>
 
 
+
                     <div class="form-grid">
 
 
+                        <!-- FULL NAME -->
+
                         <div class="input-group">
 
-                            <label>
+                            <label for="fullName">
                                 Full Name
                             </label>
 
@@ -128,32 +139,39 @@
                                 type="text"
                                 id="fullName"
                                 placeholder="Enter your full name"
-                                required
+                                autocomplete="name"
                             >
 
                         </div>
 
 
+
+                        <!-- PHONE -->
+
                         <div class="input-group">
 
-                            <label>
+                            <label for="phone">
                                 Phone Number
                             </label>
 
                             <input
                                 type="tel"
                                 id="phone"
-                                placeholder="Enter your phone number"
+                                placeholder="Enter your 10-digit phone number"
                                 maxlength="10"
-                                required
+                                inputmode="numeric"
+                                autocomplete="tel"
                             >
 
                         </div>
 
 
+
+                        <!-- ADDRESS -->
+
                         <div class="input-group full-width">
 
-                            <label>
+                            <label for="address">
                                 Address
                             </label>
 
@@ -161,14 +179,17 @@
                                 id="address"
                                 placeholder="House No, Street, Area"
                                 rows="3"
-                                required></textarea>
+                            ></textarea>
 
                         </div>
 
 
+
+                        <!-- CITY -->
+
                         <div class="input-group">
 
-                            <label>
+                            <label for="city">
                                 City
                             </label>
 
@@ -176,15 +197,18 @@
                                 type="text"
                                 id="city"
                                 placeholder="Enter city"
-                                required
+                                autocomplete="address-level2"
                             >
 
                         </div>
 
 
+
+                        <!-- PINCODE -->
+
                         <div class="input-group">
 
-                            <label>
+                            <label for="pincode">
                                 Pincode
                             </label>
 
@@ -193,10 +217,12 @@
                                 id="pincode"
                                 placeholder="6-digit pincode"
                                 maxlength="6"
-                                required
+                                inputmode="numeric"
+                                autocomplete="postal-code"
                             >
 
                         </div>
+
 
                     </div>
 
@@ -204,15 +230,19 @@
 
 
 
-                <!-- Payment -->
+                <!-- =========================
+                     PAYMENT METHOD
+                ========================== -->
 
                 <div class="checkout-card">
+
 
                     <div class="card-title">
 
                         <div class="step-number">
                             2
                         </div>
+
 
                         <div>
 
@@ -229,8 +259,11 @@
                     </div>
 
 
+
                     <div class="payment-options">
 
+
+                        <!-- CASH ON DELIVERY -->
 
                         <label class="payment-option">
 
@@ -256,6 +289,9 @@
                         </label>
 
 
+
+                        <!-- UPI -->
+
                         <label class="payment-option">
 
                             <input
@@ -279,6 +315,9 @@
                         </label>
 
 
+
+                        <!-- CARD -->
+
                         <label class="payment-option">
 
                             <input
@@ -301,15 +340,19 @@
 
                         </label>
 
+
                     </div>
 
                 </div>
 
 
 
-                <!-- Place Order -->
+                <!-- =========================
+                     PLACE ORDER BUTTON
+                ========================== -->
 
                 <button
+                    type="button"
                     id="placeOrder"
                     class="place-order-btn">
 
@@ -328,23 +371,31 @@
 
             <aside class="order-summary">
 
+
                 <div class="summary-card">
+
 
                     <h2>
                         Order Summary
                     </h2>
 
 
+
+                    <!-- PRODUCTS -->
+
                     <div
                         id="summaryItems"
                         class="summary-items">
 
                         <p>
-                            No items in cart.
+                            Loading cart...
                         </p>
 
                     </div>
 
+
+
+                    <!-- SUBTOTAL -->
 
                     <div class="summary-line">
 
@@ -359,6 +410,9 @@
                     </div>
 
 
+
+                    <!-- DELIVERY -->
+
                     <div class="summary-line">
 
                         <span>
@@ -366,11 +420,14 @@
                         </span>
 
                         <strong id="delivery">
-                            ₹40
+                            ₹0
                         </strong>
 
                     </div>
 
+
+
+                    <!-- TOTAL -->
 
                     <div class="summary-line total">
 
@@ -379,21 +436,28 @@
                         </span>
 
                         <strong id="total">
-                            ₹40
+                            ₹0
                         </strong>
 
                     </div>
 
 
+
+                    <!-- SECURITY NOTE -->
+
                     <div class="secure-note">
 
                         🔒
-                        Your information is
-                        securely handled.
+
+                        <span>
+                            Your information is securely handled.
+                        </span>
 
                     </div>
 
+
                 </div>
+
 
             </aside>
 
@@ -410,38 +474,48 @@
 
     <div
         class="success-overlay"
-        id="successOverlay">
+        id="successOverlay"
+        style="display: none;">
+
 
         <div class="success-modal">
+
 
             <div class="success-icon">
                 ✓
             </div>
 
+
             <h2>
                 Order Placed! 🎉
             </h2>
+
 
             <p>
                 Your order has been successfully placed.
                 Thank you for choosing MedEase.
             </p>
 
+
             <div class="order-number">
 
                 Order ID:
+
                 <strong id="orderId">
                     MED000000
                 </strong>
 
             </div>
 
+
             <button
+                type="button"
                 id="continueShopping">
 
                 Continue Shopping
 
             </button>
+
 
         </div>
 
@@ -449,7 +523,12 @@
 
 
 
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
     <script src="checkout.js"></script>
+
 
 </body>
 
