@@ -7,11 +7,19 @@ JAVASCRIPT
 CART
 ================================ */
 
-let cart = JSON.parse(localStorage.getItem("medeaseCart")) || [];
+let cart =
+JSON.parse(
+localStorage.getItem("medeaseCart")
+) || [];
 
-const addButtons = document.querySelectorAll(".add-cart");
-const cartCountElement = document.getElementById("cartCount");
-const cartButton = document.getElementById("cartBtn");
+const addButtons =
+document.querySelectorAll(".add-cart");
+
+const cartCountElement =
+document.getElementById("cartCount");
+
+const cartButton =
+document.getElementById("cartBtn");
 
 /* ================================
 UPDATE CART COUNT
@@ -19,9 +27,10 @@ UPDATE CART COUNT
 
 function updateCartCount() {
 
+```
 let totalItems = 0;
 
-cart.forEach(function (item) {
+cart.forEach(function(item) {
 
     totalItems += item.quantity;
 
@@ -29,9 +38,11 @@ cart.forEach(function (item) {
 
 if (cartCountElement) {
 
-    cartCountElement.innerText = totalItems;
+    cartCountElement.innerText =
+        totalItems;
 
 }
+```
 
 }
 
@@ -41,12 +52,14 @@ SAVE CART
 
 function saveCart() {
 
+```
 localStorage.setItem(
     "medeaseCart",
     JSON.stringify(cart)
 );
 
 updateCartCount();
+```
 
 }
 
@@ -54,55 +67,64 @@ updateCartCount();
 ADD TO CART
 ================================ */
 
-addButtons.forEach(function (button) {
+addButtons.forEach(function(button) {
 
-button.addEventListener("click", function () {
+```
+button.addEventListener(
+    "click",
+    function() {
 
-    const productName =
-        button.dataset.product;
+        const productName =
+            button.dataset.product;
 
-    const productPrice =
-        Number(button.dataset.price);
-
-
-    const existingProduct =
-        cart.find(function (item) {
-
-            return item.name === productName;
-
-        });
+        const productPrice =
+            Number(button.dataset.price);
 
 
-    if (existingProduct) {
+        const existingProduct =
+            cart.find(function(item) {
 
-        existingProduct.quantity++;
+                return item.name === productName;
 
-    } else {
+            });
 
-        cart.push({
 
-            name: productName,
-            price: productPrice,
-            quantity: 1
+        if (existingProduct) {
 
-        });
+            existingProduct.quantity++;
+
+        } else {
+
+            cart.push({
+
+                name: productName,
+
+                price: productPrice,
+
+                quantity: 1
+
+            });
+
+        }
+
+
+        saveCart();
+
+
+        button.innerText =
+            "Added ✓";
+
+
+        setTimeout(function() {
+
+            button.innerText =
+                "Add +";
+
+        }, 1200);
 
     }
-
-
-    saveCart();
-
-
-    button.innerText = "Added ✓";
-
-
-    setTimeout(function () {
-
-        button.innerText = "Add +";
-
-    }, 1200);
-
-});
+);
+```
 
 });
 
@@ -112,19 +134,27 @@ CART BUTTON
 
 if (cartButton) {
 
-cartButton.addEventListener("click", function () {
+```
+cartButton.addEventListener(
+    "click",
+    function() {
 
-    if (cart.length === 0) {
+        if (cart.length === 0) {
 
-        alert("Your cart is empty. 💊");
+            alert(
+                "Your cart is empty. 💊"
+            );
 
-    } else {
+        } else {
 
-        window.location.href = "cart.html";
+            window.location.href =
+                "cart.html";
+
+        }
 
     }
-
-});
+);
+```
 
 }
 
@@ -133,21 +163,33 @@ SEARCH
 ================================ */
 
 const searchInput =
-document.getElementById("searchInput");
+document.getElementById(
+"searchInput"
+);
 
 const searchButton =
-document.getElementById("searchBtn");
+document.getElementById(
+"searchBtn"
+);
 
 const searchMessage =
-document.getElementById("searchMessage");
+document.getElementById(
+"searchMessage"
+);
 
 function performSearch() {
 
+```
 const searchValue =
-    searchInput.value.trim().toLowerCase();
+    searchInput.value
+    .trim()
+    .toLowerCase();
+
 
 const products =
-    document.querySelectorAll(".product-card");
+    document.querySelectorAll(
+        ".product-card"
+    );
 
 
 if (searchValue === "") {
@@ -163,21 +205,25 @@ if (searchValue === "") {
 let found = false;
 
 
-products.forEach(function (product) {
+products.forEach(function(product) {
 
     const productName =
         product.dataset.name.toLowerCase();
 
 
-    if (productName.includes(searchValue)) {
+    if (
+        productName.includes(searchValue)
+    ) {
 
-        product.style.display = "block";
+        product.style.display =
+            "block";
 
         found = true;
 
     } else {
 
-        product.style.display = "none";
+        product.style.display =
+            "none";
 
     }
 
@@ -202,23 +248,27 @@ if (found) {
         "No matching product found.";
 
 }
+```
 
 }
 
 if (searchButton) {
 
+```
 searchButton.addEventListener(
     "click",
     performSearch
 );
+```
 
 }
 
 if (searchInput) {
 
+```
 searchInput.addEventListener(
     "keypress",
-    function (event) {
+    function(event) {
 
         if (event.key === "Enter") {
 
@@ -228,6 +278,7 @@ searchInput.addEventListener(
 
     }
 );
+```
 
 }
 
@@ -236,13 +287,16 @@ ORDER MEDICINES
 ================================ */
 
 const orderButton =
-document.getElementById("orderMedicinesBtn");
+document.getElementById(
+"orderMedicinesBtn"
+);
 
 if (orderButton) {
 
+```
 orderButton.addEventListener(
     "click",
-    function () {
+    function() {
 
         document
             .querySelector("#medicines")
@@ -252,6 +306,7 @@ orderButton.addEventListener(
 
     }
 );
+```
 
 }
 
@@ -260,13 +315,16 @@ BROWSE CATEGORIES
 ================================ */
 
 const browseButton =
-document.getElementById("browseCategoriesBtn");
+document.getElementById(
+"browseCategoriesBtn"
+);
 
 if (browseButton) {
 
+```
 browseButton.addEventListener(
     "click",
-    function () {
+    function() {
 
         document
             .querySelector("#categories")
@@ -276,6 +334,7 @@ browseButton.addEventListener(
 
     }
 );
+```
 
 }
 
@@ -284,18 +343,37 @@ LOGIN
 ================================ */
 
 const loginButton =
-document.getElementById("loginBtn");
+document.getElementById(
+"loginBtn"
+);
 
 if (loginButton) {
 
+```
 loginButton.addEventListener(
     "click",
-    function () {
+    function() {
 
-        window.location.href = "login.html";
+        window.location.href =
+            "login.html";
 
     }
 );
+```
+
+}
+
+/* ================================
+VIEW PRODUCT DETAILS
+================================ */
+
+function viewProduct(productName) {
+
+```
+window.location.href =
+    "medicine-details.html?product=" +
+    encodeURIComponent(productName);
+```
 
 }
 
@@ -304,16 +382,20 @@ CATEGORY CARDS
 ================================ */
 
 const categoryCards =
-document.querySelectorAll(".category-card");
+document.querySelectorAll(
+".category-card"
+);
 
-categoryCards.forEach(function (card) {
+categoryCards.forEach(function(card) {
 
+```
 card.addEventListener(
     "click",
-    function () {
+    function() {
 
         const categoryName =
-            card.querySelector("h3").innerText;
+            card.querySelector("h3")
+            .innerText;
 
 
         if (searchInput) {
@@ -325,13 +407,16 @@ card.addEventListener(
 
 
         document
-            .querySelector(".search-section")
+            .querySelector(
+                ".search-section"
+            )
             .scrollIntoView({
                 behavior: "smooth"
             });
 
     }
 );
+```
 
 });
 
@@ -350,26 +435,34 @@ document.getElementById(
 );
 
 const fileName =
-document.getElementById("fileName");
+document.getElementById(
+"fileName"
+);
 
-if (uploadButton && prescriptionFile) {
+if (
+uploadButton &&
+prescriptionFile
+) {
 
+```
 uploadButton.addEventListener(
     "click",
-    function () {
+    function() {
 
         prescriptionFile.click();
 
     }
 );
+```
 
 }
 
 if (prescriptionFile) {
 
+```
 prescriptionFile.addEventListener(
     "change",
-    function () {
+    function() {
 
         if (
             prescriptionFile.files.length > 0
@@ -383,6 +476,7 @@ prescriptionFile.addEventListener(
 
     }
 );
+```
 
 }
 
@@ -393,7 +487,7 @@ INITIAL CART COUNT
 updateCartCount();
 
 /* ================================
-CONSOLE MESSAGE
+CONSOLE
 ================================ */
 
 console.log(
