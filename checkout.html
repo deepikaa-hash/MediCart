@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - MedEase</title>
+
+    <link rel="stylesheet"
+          href="checkout.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="index.html"
+               class="logo">
+
+                <span>✚</span>
+                MedEase
+
+            </a>
+
+
+            <div class="checkout-title">
+
+                Secure Checkout 🔒
+
+            </div>
+
+
+            <a href="medicines.html"
+               class="back-link">
+
+                ← Back to Medicines
+
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         PAGE
+    ========================== -->
+
+    <main class="checkout-page">
+
+
+        <div class="page-heading">
+
+            <p>ORDER PLACEMENT</p>
+
+            <h1>
+                Complete your order
+            </h1>
+
+            <span>
+                Enter your delivery details and
+                choose your preferred payment method.
+            </span>
+
+        </div>
+
+
+
+        <div class="checkout-layout">
+
+
+            <!-- =========================
+                 LEFT SIDE
+            ========================== -->
+
+            <section class="checkout-form">
+
+
+                <!-- Delivery Address -->
+
+                <div class="checkout-card">
+
+                    <div class="card-title">
+
+                        <div class="step-number">
+                            1
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Delivery Address
+                            </h2>
+
+                            <p>
+                                Where should we deliver your order?
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Enter your phone number"
+                                maxlength="10"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="input-group full-width">
+
+                            <label>
+                                Address
+                            </label>
+
+                            <textarea
+                                id="address"
+                                placeholder="House No, Street, Area"
+                                rows="3"
+                                required></textarea>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="Enter city"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>
+                                Pincode
+                            </label>
+
+                            <input
+                                type="text"
+                                id="pincode"
+                                placeholder="6-digit pincode"
+                                maxlength="6"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Payment -->
+
+                <div class="checkout-card">
+
+                    <div class="card-title">
+
+                        <div class="step-number">
+                            2
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Payment Method
+                            </h2>
+
+                            <p>
+                                Select how you want to pay.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="payment-options">
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="cod"
+                                checked
+                            >
+
+                            <div>
+
+                                <strong>
+                                    💵 Cash on Delivery
+                                </strong>
+
+                                <span>
+                                    Pay when your order arrives
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="upi"
+                            >
+
+                            <div>
+
+                                <strong>
+                                    📱 UPI
+                                </strong>
+
+                                <span>
+                                    Pay using your UPI app
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="card"
+                            >
+
+                            <div>
+
+                                <strong>
+                                    💳 Card
+                                </strong>
+
+                                <span>
+                                    Credit or debit card
+                                </span>
+
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Place Order -->
+
+                <button
+                    id="placeOrder"
+                    class="place-order-btn">
+
+                    Place Order
+
+                </button>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 RIGHT SIDE
+            ========================== -->
+
+            <aside class="order-summary">
+
+                <div class="summary-card">
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <div
+                        id="summaryItems"
+                        class="summary-items">
+
+                        <p>
+                            No items in cart.
+                        </p>
+
+                    </div>
+
+
+                    <div class="summary-line">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong id="subtotal">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-line">
+
+                        <span>
+                            Delivery
+                        </span>
+
+                        <strong id="delivery">
+                            ₹40
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-line total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong id="total">
+                            ₹40
+                        </strong>
+
+                    </div>
+
+
+                    <div class="secure-note">
+
+                        🔒
+                        Your information is
+                        securely handled.
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         SUCCESS MODAL
+    ========================== -->
+
+    <div
+        class="success-overlay"
+        id="successOverlay">
+
+        <div class="success-modal">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>
+                Order Placed! 🎉
+            </h2>
+
+            <p>
+                Your order has been successfully placed.
+                Thank you for choosing MedEase.
+            </p>
+
+            <div class="order-number">
+
+                Order ID:
+                <strong id="orderId">
+                    MED000000
+                </strong>
+
+            </div>
+
+            <button
+                id="continueShopping">
+
+                Continue Shopping
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="checkout.js"></script>
+
+</body>
+
+</html>
