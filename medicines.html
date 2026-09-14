@@ -1,659 +1,678 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>Medicines - MedEase</title>
+<title>Medicines - MedEase</title>
 
-    <link rel="stylesheet"
-          href="medicines.css">
+<link rel="stylesheet"
+      href="medicines.css">
+```
 
 </head>
 
-
 <body>
 
+```
+<!-- =========================
+     NAVBAR
+========================== -->
 
-    <!-- =========================
-         NAVBAR
-    ========================== -->
+<header>
 
-    <header>
+    <nav class="navbar">
 
-        <nav class="navbar">
+        <a href="index.html"
+           class="logo">
 
-            <a href="index.html"
-               class="logo">
+            <span>✚</span>
+            MedEase
 
-                <span>✚</span>
-                MedEase
+        </a>
 
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
             </a>
 
+            <a href="medicines.html"
+               class="active">
+                Medicines
+            </a>
 
-            <div class="nav-links">
+            <a href="#categories">
+                Categories
+            </a>
 
-                <a href="index.html">
-                    Home
-                </a>
+            <a href="index.html#about">
+                About
+            </a>
 
-                <a href="medicines.html"
-                   class="active">
-                    Medicines
-                </a>
-
-                <a href="#categories">
-                    Categories
-                </a>
-
-                <a href="#about">
-                    About
-                </a>
-
-            </div>
+        </div>
 
 
-            <div class="nav-buttons">
+        <div class="nav-buttons">
 
-                <button
-                    class="cart-btn"
-                    id="cartButton">
+            <button
+                class="cart-btn"
+                id="cartButton">
 
-                    🛒 Cart (0)
+                🛒 Cart
+                (<span id="cartCount">0</span>)
 
-                </button>
+            </button>
 
-                <button
-                    class="login-btn"
-                    onclick="window.location.href='login.html'">
 
-                    Login
+            <button
+                class="login-btn"
+                onclick="window.location.href='login.html'">
 
-                </button>
+                Login
 
-            </div>
+            </button>
 
-        </nav>
+        </div>
 
-    </header>
+    </nav>
+
+</header>
 
 
 
-    <!-- =========================
-         PAGE HEADER
-    ========================== -->
+<!-- =========================
+     PAGE HEADER
+========================== -->
 
-    <section class="page-header">
+<section class="page-header">
 
-        <p>MEDICINE STORE</p>
+    <p>MEDICINE STORE</p>
 
-        <h1>
-            Find what you need.
-        </h1>
+    <h1>
+        Find what you need.
+    </h1>
 
-        <span>
-            Browse medicines and healthcare products
-            from trusted categories.
+    <span>
+        Browse medicines and healthcare products
+        from trusted categories.
+    </span>
+
+</section>
+
+
+
+<!-- =========================
+     SEARCH
+========================== -->
+
+<section class="search-section">
+
+    <div class="search-box">
+
+        <span>🔍</span>
+
+        <input
+            type="text"
+            id="medicineSearch"
+            placeholder="Search medicines or products..."
+        >
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CATEGORY FILTERS
+========================== -->
+
+<section
+    class="category-section"
+    id="categories">
+
+    <button
+        class="filter-btn active"
+        data-category="all">
+
+        All
+
+    </button>
+
+
+    <button
+        class="filter-btn"
+        data-category="medicine">
+
+        💊 Medicines
+
+    </button>
+
+
+    <button
+        class="filter-btn"
+        data-category="vitamin">
+
+        🧴 Vitamins
+
+    </button>
+
+
+    <button
+        class="filter-btn"
+        data-category="firstaid">
+
+        🩹 First Aid
+
+    </button>
+
+
+    <button
+        class="filter-btn"
+        data-category="personal">
+
+        🧼 Personal Care
+
+    </button>
+
+</section>
+
+
+
+<!-- =========================
+     PRODUCTS
+========================== -->
+
+<main class="products-section">
+
+    <div class="products-heading">
+
+        <div>
+
+            <p>AVAILABLE PRODUCTS</p>
+
+            <h2>
+                Healthcare essentials
+            </h2>
+
+        </div>
+
+
+        <span id="productCount">
+            8 Products
         </span>
-
-    </section>
-
-
-
-    <!-- =========================
-         SEARCH
-    ========================== -->
-
-    <section class="search-section">
-
-        <div class="search-box">
-
-            <span>🔍</span>
-
-            <input
-                type="text"
-                id="medicineSearch"
-                placeholder="Search medicines or products..."
-            >
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         CATEGORY FILTERS
-    ========================== -->
-
-    <section
-        class="category-section"
-        id="categories">
-
-        <button
-            class="category-btn active"
-            data-category="all">
-
-            All
-
-        </button>
-
-        <button
-            class="category-btn"
-            data-category="medicine">
-
-            💊 Medicines
-
-        </button>
-
-        <button
-            class="category-btn"
-            data-category="vitamin">
-
-            🧴 Vitamins
-
-        </button>
-
-        <button
-            class="category-btn"
-            data-category="firstaid">
-
-            🩹 First Aid
-
-        </button>
-
-        <button
-            class="category-btn"
-            data-category="personal">
-
-            🧼 Personal Care
-
-        </button>
-
-    </section>
-
-
-
-    <!-- =========================
-         PRODUCTS
-    ========================== -->
-
-    <main class="products-section">
-
-        <div class="products-heading">
-
-            <div>
-
-                <p>AVAILABLE PRODUCTS</p>
-
-                <h2>
-                    Healthcare essentials
-                </h2>
-
-            </div>
-
-            <span id="productCount">
-                8 Products
-            </span>
-
-        </div>
-
-
-
-        <div
-            class="product-grid"
-            id="productGrid">
-
-
-            <!-- Product 1 -->
-
-            <div
-                class="product-card"
-                data-category="medicine"
-                data-name="Paracetamol">
-
-                <div class="product-image">
-                    💊
-                </div>
-
-                <span class="tag">
-                    Medicine
-                </span>
-
-                <h3>
-                    Paracetamol
-                </h3>
-
-                <p>
-                    500 mg Tablets
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        ₹25
-                    </strong>
-
-                    <button
-                        class="add-btn"
-                        data-name="Paracetamol"
-                        data-price="25">
-
-                        Add +
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Product 2 -->
-
-            <div
-                class="product-card"
-                data-category="medicine"
-                data-name="Cetirizine">
-
-                <div class="product-image">
-                    💊
-                </div>
-
-                <span class="tag">
-                    Medicine
-                </span>
-
-                <h3>
-                    Cetirizine
-                </h3>
-
-                <p>
-                    Allergy Relief Tablets
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        ₹35
-                    </strong>
-
-                    <button
-                        class="add-btn"
-                        data-name="Cetirizine"
-                        data-price="35">
-
-                        Add +
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Product 3 -->
-
-            <div
-                class="product-card"
-                data-category="medicine"
-                data-name="Antacid">
-
-                <div class="product-image">
-                    💊
-                </div>
-
-                <span class="tag">
-                    Medicine
-                </span>
-
-                <h3>
-                    Antacid
-                </h3>
-
-                <p>
-                    Digestive Relief
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        ₹60
-                    </strong>
-
-                    <button
-                        class="add-btn"
-                        data-name="Antacid"
-                        data-price="60">
-
-                        Add +
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Product 4 -->
-
-            <div
-                class="product-card"
-                data-category="vitamin"
-                data-name="Vitamin C">
-
-                <div class="product-image">
-                    🍊
-                </div>
-
-                <span class="tag">
-                    Vitamin
-                </span>
-
-                <h3>
-                    Vitamin C
-                </h3>
-
-                <p>
-                    Immunity Support
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        ₹120
-                    </strong>
-
-                    <button
-                        class="add-btn"
-                        data-name="Vitamin C"
-                        data-price="120">
-
-                        Add +
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Product 5 -->
-
-            <div
-                class="product-card"
-                data-category="vitamin"
-                data-name="Multivitamin">
-
-                <div class="product-image">
-                    💊
-                </div>
-
-                <span class="tag">
-                    Vitamin
-                </span>
-
-                <h3>
-                    Multivitamin
-                </h3>
-
-                <p>
-                    Daily Health Supplement
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        ₹180
-                    </strong>
-
-                    <button
-                        class="add-btn"
-                        data-name="Multivitamin"
-                        data-price="180">
-
-                        Add +
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Product 6 -->
-
-            <div
-                class="product-card"
-                data-category="firstaid"
-                data-name="First Aid Kit">
-
-                <div class="product-image">
-                    🩹
-                </div>
-
-                <span class="tag">
-                    First Aid
-                </span>
-
-                <h3>
-                    First Aid Kit
-                </h3>
-
-                <p>
-                    Emergency Care Kit
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        ₹299
-                    </strong>
-
-                    <button
-                        class="add-btn"
-                        data-name="First Aid Kit"
-                        data-price="299">
-
-                        Add +
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Product 7 -->
-
-            <div
-                class="product-card"
-                data-category="firstaid"
-                data-name="Antiseptic Lotion">
-
-                <div class="product-image">
-                    🧴
-                </div>
-
-                <span class="tag">
-                    First Aid
-                </span>
-
-                <h3>
-                    Antiseptic Lotion
-                </h3>
-
-                <p>
-                    Skin Cleaning Solution
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        ₹95
-                    </strong>
-
-                    <button
-                        class="add-btn"
-                        data-name="Antiseptic Lotion"
-                        data-price="95">
-
-                        Add +
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Product 8 -->
-
-            <div
-                class="product-card"
-                data-category="personal"
-                data-name="Hand Sanitizer">
-
-                <div class="product-image">
-                    🧼
-                </div>
-
-                <span class="tag">
-                    Personal Care
-                </span>
-
-                <h3>
-                    Hand Sanitizer
-                </h3>
-
-                <p>
-                    100 ml Sanitizer
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        ₹75
-                    </strong>
-
-                    <button
-                        class="add-btn"
-                        data-name="Hand Sanitizer"
-                        data-price="75">
-
-                        Add +
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- No Result -->
-
-        <div
-            id="noResult"
-            class="no-result">
-
-            <div>🔍</div>
-
-            <h3>
-                No products found
-            </h3>
-
-            <p>
-                Try searching for another medicine.
-            </p>
-
-        </div>
-
-    </main>
-
-
-
-    <!-- =========================
-         CART MODAL
-    ========================== -->
-
-    <div
-        class="cart-overlay"
-        id="cartOverlay">
-
-        <div class="cart-modal">
-
-            <div class="cart-header">
-
-                <h2>
-                    Your Cart 🛒
-                </h2>
-
-                <button
-                    id="closeCart">
-
-                    ×
-
-                </button>
-
-            </div>
-
-
-            <div
-                id="cartItems"
-                class="cart-items">
-
-                <p class="empty-cart">
-                    Your cart is empty.
-                </p>
-
-            </div>
-
-
-            <div class="cart-footer">
-
-                <div>
-
-                    <span>
-                        Total
-                    </span>
-
-                    <strong id="cartTotal">
-                        ₹0
-                    </strong>
-
-                </div>
-
-                <button
-                    id="checkoutButton"
-                    class="checkout-btn">
-
-                    Proceed to Checkout
-
-                </button>
-
-            </div>
-
-        </div>
 
     </div>
 
 
 
-    <script src="medicines.js"></script>
+    <div
+        class="product-grid"
+        id="productGrid">
+
+
+        <!-- Product 1 -->
+
+        <div
+            class="product-card"
+            data-category="medicine"
+            data-name="Paracetamol">
+
+            <div class="product-image">
+                💊
+            </div>
+
+            <span class="tag">
+                Medicine
+            </span>
+
+            <h3>
+                Paracetamol
+            </h3>
+
+            <p>
+                500 mg Tablets
+            </p>
+
+            <div class="product-bottom">
+
+                <strong>
+                    ₹25
+                </strong>
+
+                <button
+                    class="add-btn"
+                    data-name="Paracetamol"
+                    data-price="25">
+
+                    Add +
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Product 2 -->
+
+        <div
+            class="product-card"
+            data-category="medicine"
+            data-name="Cetirizine">
+
+            <div class="product-image">
+                💊
+            </div>
+
+            <span class="tag">
+                Medicine
+            </span>
+
+            <h3>
+                Cetirizine
+            </h3>
+
+            <p>
+                Allergy Relief Tablets
+            </p>
+
+            <div class="product-bottom">
+
+                <strong>
+                    ₹35
+                </strong>
+
+                <button
+                    class="add-btn"
+                    data-name="Cetirizine"
+                    data-price="35">
+
+                    Add +
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Product 3 -->
+
+        <div
+            class="product-card"
+            data-category="medicine"
+            data-name="Antacid">
+
+            <div class="product-image">
+                💊
+            </div>
+
+            <span class="tag">
+                Medicine
+            </span>
+
+            <h3>
+                Antacid
+            </h3>
+
+            <p>
+                Digestive Relief
+            </p>
+
+            <div class="product-bottom">
+
+                <strong>
+                    ₹60
+                </strong>
+
+                <button
+                    class="add-btn"
+                    data-name="Antacid"
+                    data-price="60">
+
+                    Add +
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Product 4 -->
+
+        <div
+            class="product-card"
+            data-category="vitamin"
+            data-name="Vitamin C">
+
+            <div class="product-image">
+                🍊
+            </div>
+
+            <span class="tag">
+                Vitamin
+            </span>
+
+            <h3>
+                Vitamin C
+            </h3>
+
+            <p>
+                Immunity Support
+            </p>
+
+            <div class="product-bottom">
+
+                <strong>
+                    ₹120
+                </strong>
+
+                <button
+                    class="add-btn"
+                    data-name="Vitamin C"
+                    data-price="120">
+
+                    Add +
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Product 5 -->
+
+        <div
+            class="product-card"
+            data-category="vitamin"
+            data-name="Multivitamin">
+
+            <div class="product-image">
+                💊
+            </div>
+
+            <span class="tag">
+                Vitamin
+            </span>
+
+            <h3>
+                Multivitamin
+            </h3>
+
+            <p>
+                Daily Health Supplement
+            </p>
+
+            <div class="product-bottom">
+
+                <strong>
+                    ₹180
+                </strong>
+
+                <button
+                    class="add-btn"
+                    data-name="Multivitamin"
+                    data-price="180">
+
+                    Add +
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Product 6 -->
+
+        <div
+            class="product-card"
+            data-category="firstaid"
+            data-name="First Aid Kit">
+
+            <div class="product-image">
+                🩹
+            </div>
+
+            <span class="tag">
+                First Aid
+            </span>
+
+            <h3>
+                First Aid Kit
+            </h3>
+
+            <p>
+                Emergency Care Kit
+            </p>
+
+            <div class="product-bottom">
+
+                <strong>
+                    ₹299
+                </strong>
+
+                <button
+                    class="add-btn"
+                    data-name="First Aid Kit"
+                    data-price="299">
+
+                    Add +
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Product 7 -->
+
+        <div
+            class="product-card"
+            data-category="firstaid"
+            data-name="Antiseptic Lotion">
+
+            <div class="product-image">
+                🧴
+            </div>
+
+            <span class="tag">
+                First Aid
+            </span>
+
+            <h3>
+                Antiseptic Lotion
+            </h3>
+
+            <p>
+                Skin Cleaning Solution
+            </p>
+
+            <div class="product-bottom">
+
+                <strong>
+                    ₹95
+                </strong>
+
+                <button
+                    class="add-btn"
+                    data-name="Antiseptic Lotion"
+                    data-price="95">
+
+                    Add +
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Product 8 -->
+
+        <div
+            class="product-card"
+            data-category="personal"
+            data-name="Hand Sanitizer">
+
+            <div class="product-image">
+                🧼
+            </div>
+
+            <span class="tag">
+                Personal Care
+            </span>
+
+            <h3>
+                Hand Sanitizer
+            </h3>
+
+            <p>
+                100 ml Sanitizer
+            </p>
+
+            <div class="product-bottom">
+
+                <strong>
+                    ₹75
+                </strong>
+
+                <button
+                    class="add-btn"
+                    data-name="Hand Sanitizer"
+                    data-price="75">
+
+                    Add +
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- No Result -->
+
+    <div
+        id="noResult"
+        class="no-result">
+
+        <div>🔍</div>
+
+        <h3>
+            No products found
+        </h3>
+
+        <p>
+            Try searching for another medicine.
+        </p>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================
+     CART MODAL
+========================== -->
+
+<div
+    class="cart-overlay"
+    id="cartOverlay">
+
+    <div class="cart-modal">
+
+
+        <div class="cart-header">
+
+            <h2>
+                Your Cart 🛒
+            </h2>
+
+            <button
+                id="closeCart">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <div
+            id="cartItems"
+            class="cart-items">
+
+            <p class="empty-cart">
+                Your cart is empty.
+            </p>
+
+        </div>
+
+
+
+        <div class="cart-footer">
+
+            <div>
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="cartTotal">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <button
+                id="checkoutButton"
+                class="checkout-btn">
+
+                Proceed to Checkout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script src="medicines.js"></script>
+```
 
 </body>
 
