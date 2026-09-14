@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders - MedEase</title>
+
+    <link rel="stylesheet" href="orders.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <span>✚</span> MedEase
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="medicines.html">Medicines</a>
+            <a href="orders.html" class="active">My Orders</a>
+        </div>
+
+        <div class="nav-actions">
+            <button onclick="goToMedicines()" class="shop-btn">
+                Continue Shopping
+            </button>
+        </div>
+
+    </nav>
+
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+
+        <div>
+            <p class="small-title">YOUR ORDERS</p>
+
+            <h1>
+                My Orders 📦
+            </h1>
+
+            <p>
+                Track your medicines and view your recent orders.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- ORDERS SECTION -->
+    <main class="orders-container">
+
+        <div id="ordersList">
+
+            <!-- Orders will appear here using JavaScript -->
+
+        </div>
+
+
+        <!-- EMPTY ORDERS -->
+        <div id="emptyOrders" class="empty-orders">
+
+            <div class="empty-icon">
+                📦
+            </div>
+
+            <h2>No orders yet</h2>
+
+            <p>
+                You haven't placed any orders yet.
+                Start shopping for your medicines.
+            </p>
+
+            <button onclick="goToMedicines()">
+                Browse Medicines
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-logo">
+            ✚ MedEase
+        </div>
+
+        <p>
+            Healthcare made simple, safe and accessible.
+        </p>
+
+        <p class="copyright">
+            © 2026 MedEase. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="orders.js"></script>
+
+</body>
+</html>
