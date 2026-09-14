@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Medicine Details - MedEase</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+    .details-page {
+        min-height: 80vh;
+        padding: 70px 8%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .details-card {
+        width: 850px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        background: white;
+        padding: 45px;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    }
+
+    .details-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 120px;
+        background: #f3f8f5;
+        border-radius: 18px;
+        min-height: 350px;
+    }
+
+    .details-info h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .details-info .subtitle {
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    .details-price {
+        font-size: 28px;
+        font-weight: bold;
+        color: #16834a;
+        margin: 20px 0;
+    }
+
+    .details-info h3 {
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    .details-info p {
+        line-height: 1.7;
+        color: #555;
+    }
+
+    .quantity-box {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 25px 0;
+    }
+
+    .quantity-box button {
+        width: 35px;
+        height: 35px;
+        border: none;
+        border-radius: 8px;
+        background: #16834a;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .quantity-box span {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .details-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .add-details-btn,
+    .back-btn {
+        padding: 13px 22px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .add-details-btn {
+        background: #16834a;
+        color: white;
+    }
+
+    .back-btn {
+        background: #eeeeee;
+        color: #333;
+    }
+
+    #message {
+        margin-top: 15px;
+        color: #16834a;
+        font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+
+        .details-card {
+            grid-template-columns: 1fr;
+            padding: 25px;
+        }
+
+        .details-image {
+            min-height: 250px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- ================= NAVIGATION ================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span>✚</span> MedEase
+        </div>
+
+        <div class="nav-buttons">
+
+            <button
+                class="cart-btn"
+                onclick="window.location.href='cart.html'">
+
+                🛒 Cart
+
+            </button>
+
+            <button
+                class="login-btn"
+                onclick="window.location.href='login.html'">
+
+                Login
+
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= MEDICINE DETAILS ================= -->
+
+<main class="details-page">
+
+    <div class="details-card">
+
+
+        <div class="details-image">
+
+            <span id="productIcon">
+                💊
+            </span>
+
+        </div>
+
+
+        <div class="details-info">
+
+            <h1 id="productName">
+                Medicine
+            </h1>
+
+            <p
+                class="subtitle"
+                id="productSubtitle">
+
+                Healthcare Product
+
+            </p>
+
+
+            <div
+                class="details-price"
+                id="productPrice">
+
+                ₹0
+
+            </div>
+
+
+            <h3>
+                About this product
+            </h3>
+
+            <p id="productDescription">
+
+                This healthcare product is designed
+                to support your everyday healthcare needs.
+
+            </p>
+
+
+            <h3>
+                Quantity
+            </h3>
+
+            <div class="quantity-box">
+
+                <button onclick="decreaseQuantity()">
+                    −
+                </button>
+
+                <span id="quantity">
+                    1
+                </span>
+
+                <button onclick="increaseQuantity()">
+                    +
+                </button>
+
+            </div>
+
+
+            <div class="details-buttons">
+
+                <button
+                    class="add-details-btn"
+                    onclick="addToCart()">
+
+                    🛒 Add to Cart
+
+                </button>
+
+                <button
+                    class="back-btn"
+                    onclick="window.location.href='index.html#medicines'">
+
+                    ← Back to Medicines
+
+                </button>
+
+            </div>
+
+
+            <p id="message"></p>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    const products = {
+
+        "Paracetamol": {
+
+            price: 25,
+
+            icon: "💊",
+
+            subtitle: "500 mg Tablets",
+
+            description:
+                "A commonly used healthcare product. Please use medicines only according to appropriate medical guidance."
+
+        },
+
+        "Vitamin C": {
+
+            price: 120,
+
+            icon: "💊",
+
+            subtitle: "Health Supplement",
+
+            description:
+                "A vitamin supplement intended to support general nutritional needs."
+
+        },
+
+        "Antiseptic Lotion": {
+
+            price: 95,
+
+            icon: "🧴",
+
+            subtitle: "Healthcare Essential",
+
+            description:
+                "An antiseptic healthcare product commonly used for basic first-aid and hygiene needs."
+
+        },
+
+        "First Aid Kit": {
+
+            price: 299,
+
+            icon: "🩹",
+
+            subtitle: "Emergency Care",
+
+            description:
+                "A convenient collection of basic first-aid supplies for everyday emergency situations."
+
+        }
+
+    };
+
+
+    let quantity = 1;
+
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const productName =
+        params.get("product") || "Paracetamol";
+
+
+    const product =
+        products[productName] || products["Paracetamol"];
+
+
+    document.getElementById("productName").innerText =
+        productName;
+
+    document.getElementById("productIcon").innerText =
+        product.icon;
+
+    document.getElementById("productSubtitle").innerText =
+        product.subtitle;
+
+    document.getElementById("productPrice").innerText =
+        "₹" + product.price;
+
+    document.getElementById("productDescription").innerText =
+        product.description;
+
+
+    function increaseQuantity() {
+
+        quantity++;
+
+        document.getElementById("quantity").innerText =
+            quantity;
+
+    }
+
+
+    function decreaseQuantity() {
+
+        if (quantity > 1) {
+
+            quantity--;
+
+        }
+
+        document.getElementById("quantity").innerText =
+            quantity;
+
+    }
+
+
+    function addToCart() {
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("medeaseCart")
+            ) || [];
+
+
+        const existingProduct =
+            cart.find(function(item) {
+
+                return item.name === productName;
+
+            });
+
+
+        if (existingProduct) {
+
+            existingProduct.quantity += quantity;
+
+        } else {
+
+            cart.push({
+
+                name: productName,
+
+                price: product.price,
+
+                quantity: quantity
+
+            });
+
+        }
+
+
+        localStorage.setItem(
+            "medeaseCart",
+            JSON.stringify(cart)
+        );
+
+
+        document.getElementById("message").innerText =
+            "✓ Added to cart successfully!";
+
+
+        setTimeout(function() {
+
+            window.location.href = "cart.html";
+
+        }, 800);
+
+    }
+
+</script>
+```
+
+</body>
+
+</html>
