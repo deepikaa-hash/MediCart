@@ -1,20 +1,14 @@
-// =====================================
-// CHECKOUT PAGE
-// =====================================
+/* =========================
+   LOAD CART
+========================= */
+
+let cart =
+    JSON.parse(localStorage.getItem("medEaseCart")) || [];
 
 
-// Get cart from medicines page
-// For now, we use sample cart data if
-// the page is opened directly.
-
-let cart = JSON.parse(
-    localStorage.getItem("medEaseCart")
-) || [];
-
-
-// =====================================
-// ELEMENTS
-// =====================================
+/* =========================
+   GET HTML ELEMENTS
+========================= */
 
 const summaryItems =
     document.getElementById("summaryItems");
@@ -37,35 +31,35 @@ const successOverlay =
 const orderIdElement =
     document.getElementById("orderId");
 
-const continueShopping =
+const continueShoppingButton =
     document.getElementById("continueShopping");
 
 
-// =====================================
-// DISPLAY ORDER SUMMARY
-// =====================================
+/* =========================
+   DISPLAY ORDER SUMMARY
+========================= */
 
-function displaySummary() {
+function displayOrderSummary() {
+
+    /* Cart is empty */
 
     if (cart.length === 0) {
 
         summaryItems.innerHTML = `
-
-            <p>
+            <div class="empty-summary">
                 Your cart is empty.
-            </p>
-
+            </div>
         `;
 
-        subtotalElement.innerText = "₹0";
-
-        deliveryElement.innerText = "₹0";
-
-        totalElement.innerText = "₹0";
+        subtotalElement.textContent = "₹0";
+        deliveryElement.textContent = "₹0";
+        totalElement.textContent = "₹0";
 
         return;
     }
 
+
+    /* Clear previous items */
 
     summaryItems.innerHTML = "";
 
@@ -73,11 +67,12 @@ function displaySummary() {
     let subtotal = 0;
 
 
-    cart.forEach(function (item) {
+    /* Display each product */
+
+    cart.forEach(function(item) {
 
         const itemTotal =
             item.price * item.quantity;
-
 
         subtotal += itemTotal;
 
@@ -85,102 +80,215 @@ function displaySummary() {
         const itemElement =
             document.createElement("div");
 
-
-        itemElement.className =
-            "summary-item";
+        itemElement.className = "summary-item";
 
 
         itemElement.innerHTML = `
 
-            <div>
+            <div class="summary-item-info">
 
-                <h4>
+                <div class="summary-item-name">
                     ${item.name}
-                </h4>
+                </div>
 
-                <p>
+                <div class="summary-item-quantity">
                     Quantity: ${item.quantity}
-                </p>
+                </div>
 
             </div>
 
-            <strong>
+            <div class="summary-item-price">
                 ₹${itemTotal}
-            </strong>
+            </div>
 
         `;
 
 
-        summaryItems.appendChild(
-            itemElement
-        );
+        summaryItems.appendChild(itemElement);
 
     });
 
 
-    // Delivery charge
+    /* =========================
+       DELIVERY CHARGE
+    ========================= */
 
-    const delivery =
-        subtotal >= 500 ? 0 : 40;
+    let deliveryCharge = 0;
 
+
+    /*
+       Free delivery for orders
+       ₹500 or above
+    */
+
+    if (subtotal < 500) {
+
+        deliveryCharge = 40;
+
+    }
+
+
+    /* =========================
+       FINAL TOTAL
+    ========================= */
 
     const total =
-        subtotal + delivery;
+        subtotal + deliveryCharge;
 
 
-    subtotalElement.innerText =
-        "₹" + subtotal;
+    /* Display values */
 
+    subtotalElement.textContent =
+        `₹${subtotal}`;
 
-    deliveryElement.innerText =
-        delivery === 0
-            ? "FREE"
-            : "₹" + delivery;
+    if (deliveryCharge === 0) {
 
+        deliveryElement.textContent =
+            "FREE";
 
-    totalElement.innerText =
-        "₹" + total;
+    } else {
+
+        deliveryElement.textContent =
+            `₹${deliveryCharge}`;
+
+    }
+
+    totalElement.textContent =
+        `₹${total}`;
 
 }
 
 
-// Run when page loads
-displaySummary();
+/* =========================
+   GENERATE ORDER ID
+========================= */
+
+function generateOrderId() {
+
+    return (
+        "MED" +
+        Math.floor(
+            100000 +
+            Math.random() * 900000
+        )
+    );
+
+}
 
 
-// =====================================
-// PLACE ORDER
-// =====================================
+/* =========================
+   GET PAYMENT METHOD
+========================= */
+
+function getPaymentMethod() {
+
+    const selectedPayment =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+
+    if (!selectedPayment) {
+
+        return null;
+
+    }
+
+
+    return selectedPayment.value;
+
+}
+
+
+/* =========================
+   VALIDATE FORM
+========================= */
+
+function validateForm() {
+
+    const fullName =
+        document.getElementById("fullName").value.trim();
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+    const address =
+        document.getElementById("address").value.trim();
+
+    const city =
+        document.getElementById("city").value.trim();
+
+    const pincode =
+        document.getElementById("pincode").value.trim();
+
+
+    /* Check empty fields */
+
+    if (
+        fullName === "" ||
+        phone === "" ||
+        address === "" ||
+        city === "" ||
+        pincode === ""
+    ) {
+
+        alert(
+            "Please fill in all delivery address fields."
+        );
+
+        return false;
+
+    }
+
+
+    /* Validate phone */
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+
+        alert(
+            "Please enter a valid 10-digit phone number."
+        );
+
+        return false;
+
+    }
+
+
+    /* Validate pincode */
+
+    if (!/^[0-9]{6}$/.test(pincode)) {
+
+        alert(
+            "Please enter a valid 6-digit pincode."
+        );
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================
+   PLACE ORDER
+========================= */
 
 placeOrderButton.addEventListener(
     "click",
-    function () {
+    function() {
 
 
-        // Get form values
-
-        const fullName =
-            document.getElementById("fullName").value.trim();
-
-        const phone =
-            document.getElementById("phone").value.trim();
-
-        const address =
-            document.getElementById("address").value.trim();
-
-        const city =
-            document.getElementById("city").value.trim();
-
-        const pincode =
-            document.getElementById("pincode").value.trim();
-
-
-        // Check cart
+        /* =========================
+           CHECK CART
+        ========================= */
 
         if (cart.length === 0) {
 
             alert(
-                "Your cart is empty. Please add a medicine first."
+                "Your cart is empty. Please add medicines before checkout."
             );
 
             window.location.href =
@@ -191,114 +299,252 @@ placeOrderButton.addEventListener(
         }
 
 
-        // Check form
+        /* =========================
+           VALIDATE FORM
+        ========================= */
 
-        if (
-            fullName === "" ||
-            phone === "" ||
-            address === "" ||
-            city === "" ||
-            pincode === ""
-        ) {
-
-            alert(
-                "Please fill in all delivery details."
-            );
+        if (!validateForm()) {
 
             return;
 
         }
 
 
-        // Validate phone
-
-        if (
-            phone.length !== 10 ||
-            isNaN(phone)
-        ) {
-
-            alert(
-                "Please enter a valid 10-digit phone number."
-            );
-
-            return;
-
-        }
-
-
-        // Validate pincode
-
-        if (
-            pincode.length !== 6 ||
-            isNaN(pincode)
-        ) {
-
-            alert(
-                "Please enter a valid 6-digit pincode."
-            );
-
-            return;
-
-        }
-
-
-        // Get payment method
+        /* =========================
+           GET PAYMENT
+        ========================= */
 
         const paymentMethod =
-            document.querySelector(
-                'input[name="payment"]:checked'
-            ).value;
+            getPaymentMethod();
 
 
-        console.log(
-            "Payment Method:",
-            paymentMethod
+        if (!paymentMethod) {
+
+            alert(
+                "Please select a payment method."
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           CALCULATE TOTAL
+        ========================= */
+
+        let subtotal = 0;
+
+
+        cart.forEach(function(item) {
+
+            subtotal +=
+                item.price * item.quantity;
+
+        });
+
+
+        let deliveryCharge = 0;
+
+
+        if (subtotal < 500) {
+
+            deliveryCharge = 40;
+
+        }
+
+
+        const total =
+            subtotal + deliveryCharge;
+
+
+        /* =========================
+           GENERATE ORDER ID
+        ========================= */
+
+        const orderId =
+            generateOrderId();
+
+
+        /* =========================
+           GET CUSTOMER DETAILS
+        ========================= */
+
+        const customerDetails = {
+
+            fullName:
+                document
+                    .getElementById("fullName")
+                    .value
+                    .trim(),
+
+            phone:
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim(),
+
+            address:
+                document
+                    .getElementById("address")
+                    .value
+                    .trim(),
+
+            city:
+                document
+                    .getElementById("city")
+                    .value
+                    .trim(),
+
+            pincode:
+                document
+                    .getElementById("pincode")
+                    .value
+                    .trim()
+
+        };
+
+
+        /* =========================
+           PAYMENT NAME
+        ========================= */
+
+        let paymentName;
+
+
+        if (paymentMethod === "cod") {
+
+            paymentName =
+                "Cash on Delivery";
+
+        } else if (paymentMethod === "upi") {
+
+            paymentName =
+                "UPI";
+
+        } else if (paymentMethod === "card") {
+
+            paymentName =
+                "Card";
+
+        }
+
+
+        /* =========================
+           CREATE ORDER OBJECT
+        ========================= */
+
+        const newOrder = {
+
+            orderId: orderId,
+
+            date:
+                new Date().toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                ),
+
+            items: cart,
+
+            subtotal: subtotal,
+
+            deliveryCharge: deliveryCharge,
+
+            total: total,
+
+            paymentMethod: paymentName,
+
+            customer: customerDetails,
+
+            status: "Processing"
+
+        };
+
+
+        /* =========================
+           GET OLD ORDERS
+        ========================= */
+
+        let existingOrders =
+            JSON.parse(
+                localStorage.getItem(
+                    "medEaseOrders"
+                )
+            ) || [];
+
+
+        /* =========================
+           ADD NEW ORDER
+        ========================= */
+
+        existingOrders.unshift(
+            newOrder
         );
 
 
-        // Generate order ID
+        /* =========================
+           SAVE ORDER
+        ========================= */
 
-        const orderId =
-            "MED" +
-            Math.floor(
-                100000 +
-                Math.random() * 900000
-            );
+        localStorage.setItem(
+            "medEaseOrders",
+            JSON.stringify(
+                existingOrders
+            )
+        );
 
 
-        orderIdElement.innerText =
+        /* =========================
+           SHOW SUCCESS POPUP
+        ========================= */
+
+        orderIdElement.textContent =
             orderId;
 
-
-        // Show success modal
 
         successOverlay.style.display =
             "flex";
 
 
-        // Clear cart
+        /* =========================
+           CLEAR CART
+        ========================= */
 
         localStorage.removeItem(
             "medEaseCart"
         );
 
 
+        /* Prevent duplicate order */
+
         cart = [];
+
 
     }
 );
 
 
-// =====================================
-// CONTINUE SHOPPING
-// =====================================
+/* =========================
+   CONTINUE SHOPPING
+========================= */
 
-continueShopping.addEventListener(
+continueShoppingButton.addEventListener(
     "click",
-    function () {
+    function() {
 
         window.location.href =
             "medicines.html";
 
     }
 );
+
+
+/* =========================
+   DISPLAY SUMMARY ON PAGE LOAD
+========================= */
+
+displayOrderSummary();
