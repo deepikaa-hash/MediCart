@@ -7,7 +7,7 @@ let cart =
 
 
 /* =========================
-   GET HTML ELEMENTS
+   GET ELEMENTS
 ========================= */
 
 const summaryItems =
@@ -34,14 +34,27 @@ const orderIdElement =
 const continueShoppingButton =
     document.getElementById("continueShopping");
 
+const paymentDetails =
+    document.getElementById("paymentDetails");
+
+const upiPayment =
+    document.getElementById("upiPayment");
+
+const cardPayment =
+    document.getElementById("cardPayment");
+
+const codPayment =
+    document.getElementById("codPayment");
+
+const paymentDescription =
+    document.getElementById("paymentDescription");
+
 
 /* =========================
    DISPLAY ORDER SUMMARY
 ========================= */
 
 function displayOrderSummary() {
-
-    /* Cart is empty */
 
     if (cart.length === 0) {
 
@@ -59,15 +72,10 @@ function displayOrderSummary() {
     }
 
 
-    /* Clear previous items */
-
     summaryItems.innerHTML = "";
-
 
     let subtotal = 0;
 
-
-    /* Display each product */
 
     cart.forEach(function(item) {
 
@@ -80,7 +88,8 @@ function displayOrderSummary() {
         const itemElement =
             document.createElement("div");
 
-        itemElement.className = "summary-item";
+        itemElement.className =
+            "summary-item";
 
 
         itemElement.innerHTML = `
@@ -109,17 +118,8 @@ function displayOrderSummary() {
     });
 
 
-    /* =========================
-       DELIVERY CHARGE
-    ========================= */
-
     let deliveryCharge = 0;
 
-
-    /*
-       Free delivery for orders
-       ₹500 or above
-    */
 
     if (subtotal < 500) {
 
@@ -128,35 +128,107 @@ function displayOrderSummary() {
     }
 
 
-    /* =========================
-       FINAL TOTAL
-    ========================= */
-
     const total =
         subtotal + deliveryCharge;
 
 
-    /* Display values */
-
     subtotalElement.textContent =
         `₹${subtotal}`;
 
-    if (deliveryCharge === 0) {
-
-        deliveryElement.textContent =
-            "FREE";
-
-    } else {
-
-        deliveryElement.textContent =
-            `₹${deliveryCharge}`;
-
-    }
+    deliveryElement.textContent =
+        deliveryCharge === 0
+            ? "FREE"
+            : `₹${deliveryCharge}`;
 
     totalElement.textContent =
         `₹${total}`;
 
 }
+
+
+/* =========================
+   PAYMENT METHOD CHANGE
+========================= */
+
+const paymentRadios =
+    document.querySelectorAll(
+        'input[name="payment"]'
+    );
+
+
+paymentRadios.forEach(function(radio) {
+
+    radio.addEventListener(
+        "change",
+        function() {
+
+            paymentDetails.style.display =
+                "block";
+
+
+            upiPayment.style.display =
+                "none";
+
+            cardPayment.style.display =
+                "none";
+
+            codPayment.style.display =
+                "none";
+
+
+            /* UPI */
+
+            if (this.value === "upi") {
+
+                upiPayment.style.display =
+                    "block";
+
+                paymentDescription.textContent =
+                    "Enter your UPI ID to continue.";
+
+            }
+
+
+            /* CARD */
+
+            else if (this.value === "card") {
+
+                cardPayment.style.display =
+                    "block";
+
+                paymentDescription.textContent =
+                    "Enter your card details to continue.";
+
+            }
+
+
+            /* COD */
+
+            else {
+
+                codPayment.style.display =
+                    "block";
+
+                paymentDescription.textContent =
+                    "Pay when your order arrives.";
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================
+   DEFAULT PAYMENT
+========================= */
+
+paymentDetails.style.display =
+    "block";
+
+codPayment.style.display =
+    "block";
 
 
 /* =========================
@@ -201,28 +273,31 @@ function getPaymentMethod() {
 
 
 /* =========================
-   VALIDATE FORM
+   VALIDATE DELIVERY FORM
 ========================= */
 
-function validateForm() {
+function validateDeliveryForm() {
 
     const fullName =
-        document.getElementById("fullName").value.trim();
+        document.getElementById("fullName")
+            .value.trim();
 
     const phone =
-        document.getElementById("phone").value.trim();
+        document.getElementById("phone")
+            .value.trim();
 
     const address =
-        document.getElementById("address").value.trim();
+        document.getElementById("address")
+            .value.trim();
 
     const city =
-        document.getElementById("city").value.trim();
+        document.getElementById("city")
+            .value.trim();
 
     const pincode =
-        document.getElementById("pincode").value.trim();
+        document.getElementById("pincode")
+            .value.trim();
 
-
-    /* Check empty fields */
 
     if (
         fullName === "" ||
@@ -233,15 +308,13 @@ function validateForm() {
     ) {
 
         alert(
-            "Please fill in all delivery address fields."
+            "Please fill in all delivery details."
         );
 
         return false;
 
     }
 
-
-    /* Validate phone */
 
     if (!/^[0-9]{10}$/.test(phone)) {
 
@@ -253,8 +326,6 @@ function validateForm() {
 
     }
 
-
-    /* Validate pincode */
 
     if (!/^[0-9]{6}$/.test(pincode)) {
 
@@ -273,6 +344,130 @@ function validateForm() {
 
 
 /* =========================
+   VALIDATE PAYMENT
+========================= */
+
+function validatePayment(paymentMethod) {
+
+
+    /* COD */
+
+    if (paymentMethod === "cod") {
+
+        return true;
+
+    }
+
+
+    /* UPI */
+
+    if (paymentMethod === "upi") {
+
+        const upiId =
+            document.getElementById("upiId")
+                .value.trim();
+
+
+        if (upiId === "") {
+
+            alert(
+                "Please enter your UPI ID."
+            );
+
+            return false;
+
+        }
+
+
+        if (!upiId.includes("@")) {
+
+            alert(
+                "Please enter a valid UPI ID."
+            );
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+    /* CARD */
+
+    if (paymentMethod === "card") {
+
+        const cardNumber =
+            document.getElementById("cardNumber")
+                .value
+                .replace(/\s/g, "");
+
+        const expiry =
+            document.getElementById("expiry")
+                .value.trim();
+
+        const cvv =
+            document.getElementById("cvv")
+                .value.trim();
+
+
+        if (cardNumber === "") {
+
+            alert(
+                "Please enter your card number."
+            );
+
+            return false;
+
+        }
+
+
+        if (!/^[0-9]{16}$/.test(cardNumber)) {
+
+            alert(
+                "Please enter a valid 16-digit card number."
+            );
+
+            return false;
+
+        }
+
+
+        if (!/^[0-9]{2}\/[0-9]{2}$/.test(expiry)) {
+
+            alert(
+                "Please enter expiry date as MM/YY."
+            );
+
+            return false;
+
+        }
+
+
+        if (!/^[0-9]{3}$/.test(cvv)) {
+
+            alert(
+                "Please enter a valid 3-digit CVV."
+            );
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =========================
    PLACE ORDER
 ========================= */
 
@@ -281,14 +476,12 @@ placeOrderButton.addEventListener(
     function() {
 
 
-        /* =========================
-           CHECK CART
-        ========================= */
+        /* CART CHECK */
 
         if (cart.length === 0) {
 
             alert(
-                "Your cart is empty. Please add medicines before checkout."
+                "Your cart is empty."
             );
 
             window.location.href =
@@ -299,20 +492,16 @@ placeOrderButton.addEventListener(
         }
 
 
-        /* =========================
-           VALIDATE FORM
-        ========================= */
+        /* DELIVERY VALIDATION */
 
-        if (!validateForm()) {
+        if (!validateDeliveryForm()) {
 
             return;
 
         }
 
 
-        /* =========================
-           GET PAYMENT
-        ========================= */
+        /* PAYMENT */
 
         const paymentMethod =
             getPaymentMethod();
@@ -329,9 +518,18 @@ placeOrderButton.addEventListener(
         }
 
 
+        /* PAYMENT VALIDATION */
+
+        if (!validatePayment(paymentMethod)) {
+
+            return;
+
+        }
+
+
         /* =========================
            CALCULATE TOTAL
-        ========================= */
+        ========================== */
 
         let subtotal = 0;
 
@@ -344,14 +542,8 @@ placeOrderButton.addEventListener(
         });
 
 
-        let deliveryCharge = 0;
-
-
-        if (subtotal < 500) {
-
-            deliveryCharge = 40;
-
-        }
+        const deliveryCharge =
+            subtotal >= 500 ? 0 : 40;
 
 
         const total =
@@ -359,55 +551,50 @@ placeOrderButton.addEventListener(
 
 
         /* =========================
-           GENERATE ORDER ID
-        ========================= */
+           ORDER ID
+        ========================== */
 
         const orderId =
             generateOrderId();
 
 
         /* =========================
-           GET CUSTOMER DETAILS
-        ========================= */
+           CUSTOMER DETAILS
+        ========================== */
 
-        const customerDetails = {
+        const customer = {
 
             fullName:
                 document
                     .getElementById("fullName")
-                    .value
-                    .trim(),
+                    .value.trim(),
 
             phone:
                 document
                     .getElementById("phone")
-                    .value
-                    .trim(),
+                    .value.trim(),
 
             address:
                 document
                     .getElementById("address")
-                    .value
-                    .trim(),
+                    .value.trim(),
 
             city:
                 document
                     .getElementById("city")
-                    .value
-                    .trim(),
+                    .value.trim(),
 
             pincode:
                 document
                     .getElementById("pincode")
-                    .value
-                    .trim()
+                    .value.trim()
 
         };
 
 
         /* =========================
            PAYMENT NAME
-        ========================= */
+        ========================== */
 
         let paymentName;
 
@@ -417,12 +604,16 @@ placeOrderButton.addEventListener(
             paymentName =
                 "Cash on Delivery";
 
-        } else if (paymentMethod === "upi") {
+        }
+
+        else if (paymentMethod === "upi") {
 
             paymentName =
                 "UPI";
 
-        } else if (paymentMethod === "card") {
+        }
+
+        else {
 
             paymentName =
                 "Card";
@@ -431,8 +622,8 @@ placeOrderButton.addEventListener(
 
 
         /* =========================
-           CREATE ORDER OBJECT
-        ========================= */
+           CREATE ORDER
+        ========================== */
 
         const newOrder = {
 
@@ -452,22 +643,26 @@ placeOrderButton.addEventListener(
 
             subtotal: subtotal,
 
-            deliveryCharge: deliveryCharge,
+            deliveryCharge:
+                deliveryCharge,
 
             total: total,
 
-            paymentMethod: paymentName,
+            paymentMethod:
+                paymentName,
 
-            customer: customerDetails,
+            customer:
+                customer,
 
-            status: "Processing"
+            status:
+                "Processing"
 
         };
 
 
         /* =========================
-           GET OLD ORDERS
-        ========================= */
+           SAVE ORDER
+        ========================== */
 
         let existingOrders =
             JSON.parse(
@@ -477,18 +672,10 @@ placeOrderButton.addEventListener(
             ) || [];
 
 
-        /* =========================
-           ADD NEW ORDER
-        ========================= */
-
         existingOrders.unshift(
             newOrder
         );
 
-
-        /* =========================
-           SAVE ORDER
-        ========================= */
 
         localStorage.setItem(
             "medEaseOrders",
@@ -499,8 +686,8 @@ placeOrderButton.addEventListener(
 
 
         /* =========================
-           SHOW SUCCESS POPUP
-        ========================= */
+           SHOW SUCCESS
+        ========================== */
 
         orderIdElement.textContent =
             orderId;
@@ -512,14 +699,11 @@ placeOrderButton.addEventListener(
 
         /* =========================
            CLEAR CART
-        ========================= */
+        ========================== */
 
         localStorage.removeItem(
             "medEaseCart"
         );
-
-
-        /* Prevent duplicate order */
 
         cart = [];
 
@@ -544,7 +728,7 @@ continueShoppingButton.addEventListener(
 
 
 /* =========================
-   DISPLAY SUMMARY ON PAGE LOAD
+   LOAD SUMMARY
 ========================= */
 
 displayOrderSummary();
