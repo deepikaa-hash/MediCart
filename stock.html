@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MedEase - Stock & Nearby Pharmacies</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================
+           STOCK PAGE
+        ========================== */
+
+        .stock-page {
+            min-height: 100vh;
+            padding: 120px 8% 60px;
+            background: #f7faf8;
+        }
+
+        .stock-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stock-header h1 {
+            font-size: 38px;
+            color: #0d5536;
+            margin-bottom: 10px;
+        }
+
+        .stock-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================== */
+
+        .stock-search {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .stock-search input {
+            flex: 1;
+            padding: 15px 18px;
+            border: 1px solid #d5e2da;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .stock-search button {
+            padding: 15px 22px;
+            border: none;
+            border-radius: 10px;
+            background: #0d5536;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           MEDICINE CARDS
+        ========================== */
+
+        .stock-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .stock-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .stock-card h2 {
+            color: #0d5536;
+            margin-bottom: 8px;
+        }
+
+        .medicine-price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           STOCK STATUS
+        ========================== */
+
+        .stock-status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .in-stock {
+            background: #e1f4e8;
+            color: #167443;
+        }
+
+        .low-stock {
+            background: #fff1d6;
+            color: #a56400;
+        }
+
+        .out-stock {
+            background: #ffe3e3;
+            color: #c62828;
+        }
+
+
+        /* =========================
+           PHARMACY
+        ========================== */
+
+        .nearby-title {
+            font-size: 18px;
+            color: #222;
+            margin-bottom: 12px;
+        }
+
+        .pharmacy {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .pharmacy:last-child {
+            border-bottom: none;
+        }
+
+        .pharmacy-name {
+            font-weight: 600;
+        }
+
+        .distance {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .available {
+            color: #16834c;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .unavailable {
+            color: #d32f2f;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================== */
+
+        .stock-button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: #0d5536;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .stock-button:hover {
+            background: #083d27;
+        }
+
+
+        /* =========================
+           INFO BOX
+        ========================== */
+
+        .demo-note {
+            max-width: 900px;
+            margin: 40px auto 0;
+            padding: 18px;
+            background: #eef7f1;
+            border-left: 4px solid #0d5536;
+            border-radius: 8px;
+            color: #555;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 600px) {
+
+            .stock-page {
+                padding: 100px 5% 40px;
+            }
+
+            .stock-header h1 {
+                font-size: 30px;
+            }
+
+            .stock-search {
+                flex-direction: column;
+            }
+
+            .pharmacy {
+                gap: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                MedEase
+            </div>
+
+            <div class="nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="index.html#medicines">
+                    Medicines
+                </a>
+
+                <a href="stock.html">
+                    Stock
+                </a>
+
+                <a href="cart.html">
+                    Cart
+                    <span id="cartCount">0</span>
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         STOCK PAGE
+    ========================== -->
+
+    <main class="stock-page">
+
+
+        <div class="stock-header">
+
+            <h1>
+                📍 Stock & Nearby Pharmacies
+            </h1>
+
+            <p>
+                Check medicine availability at nearby pharmacies.
+            </p>
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="stock-search">
+
+            <input
+                type="text"
+                id="stockSearch"
+                placeholder="Search medicine..."
+            >
+
+            <button id="stockSearchBtn">
+                Search
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================
+             MEDICINE STOCK
+        ========================== -->
+
+        <div class="stock-grid"
+             id="stockGrid">
+
+
+
+            <!-- PARACETAMOL -->
+
+            <div class="stock-card"
+                 data-medicine="paracetamol">
+
+                <h2>
+                    Paracetamol
+                </h2>
+
+                <div class="medicine-price">
+                    ₹25
+                </div>
+
+                <span class="stock-status in-stock">
+                    ✓ In Stock
+                </span>
+
+
+                <h3 class="nearby-title">
+                    📍 Nearby Pharmacies
+                </h3>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            MedPlus Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            1.2 km
+                        </div>
+
+                    </div>
+
+                    <span class="available">
+                        ✓ Available
+                    </span>
+
+                </div>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            Apollo Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            2.1 km
+                        </div>
+
+                    </div>
+
+                    <span class="available">
+                        ✓ Available
+                    </span>
+
+                </div>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            Thulasi Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            2.8 km
+                        </div>
+
+                    </div>
+
+                    <span class="unavailable">
+                        ✕ Out of Stock
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="stock-button"
+                    onclick="addMedicine('Paracetamol', 25)">
+
+                    Add to Cart +
+
+                </button>
+
+            </div>
+
+
+
+            <!-- VITAMIN C -->
+
+            <div class="stock-card"
+                 data-medicine="vitamin c">
+
+                <h2>
+                    Vitamin C
+                </h2>
+
+                <div class="medicine-price">
+                    ₹120
+                </div>
+
+                <span class="stock-status in-stock">
+                    ✓ In Stock
+                </span>
+
+
+                <h3 class="nearby-title">
+                    📍 Nearby Pharmacies
+                </h3>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            Apollo Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            1.5 km
+                        </div>
+
+                    </div>
+
+                    <span class="available">
+                        ✓ Available
+                    </span>
+
+                </div>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            MedPlus Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            2.3 km
+                        </div>
+
+                    </div>
+
+                    <span class="available">
+                        ✓ Available
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="stock-button"
+                    onclick="addMedicine('Vitamin C', 120)">
+
+                    Add to Cart +
+
+                </button>
+
+            </div>
+
+
+
+            <!-- ANTISEPTIC -->
+
+            <div class="stock-card"
+                 data-medicine="antiseptic lotion">
+
+                <h2>
+                    Antiseptic Lotion
+                </h2>
+
+                <div class="medicine-price">
+                    ₹95
+                </div>
+
+                <span class="stock-status low-stock">
+                    ⚠ Low Stock
+                </span>
+
+
+                <h3 class="nearby-title">
+                    📍 Nearby Pharmacies
+                </h3>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            Thulasi Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            1.7 km
+                        </div>
+
+                    </div>
+
+                    <span class="available">
+                        ✓ Available
+                    </span>
+
+                </div>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            Apollo Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            2.5 km
+                        </div>
+
+                    </div>
+
+                    <span class="available">
+                        ✓ Available
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="stock-button"
+                    onclick="addMedicine('Antiseptic Lotion', 95)">
+
+                    Add to Cart +
+
+                </button>
+
+            </div>
+
+
+
+            <!-- FIRST AID -->
+
+            <div class="stock-card"
+                 data-medicine="first aid kit">
+
+                <h2>
+                    First Aid Kit
+                </h2>
+
+                <div class="medicine-price">
+                    ₹299
+                </div>
+
+                <span class="stock-status out-stock">
+                    ✕ Out of Stock
+                </span>
+
+
+                <h3 class="nearby-title">
+                    📍 Nearby Pharmacies
+                </h3>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            MedPlus Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            1.9 km
+                        </div>
+
+                    </div>
+
+                    <span class="unavailable">
+                        ✕ Out of Stock
+                    </span>
+
+                </div>
+
+
+                <div class="pharmacy">
+
+                    <div>
+
+                        <div class="pharmacy-name">
+                            Apollo Pharmacy
+                        </div>
+
+                        <div class="distance">
+                            3.1 km
+                        </div>
+
+                    </div>
+
+                    <span class="available">
+                        ✓ Available
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="stock-button"
+                    onclick="addMedicine('First Aid Kit', 299)">
+
+                    Add to Cart +
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             DEMO NOTE
+        ========================== -->
+
+        <div class="demo-note">
+
+            <strong>Demo Information:</strong>
+            Pharmacy names, distances and stock availability
+            shown here are sample data for the MedEase Expo prototype.
+            Real-time pharmacy inventory and location services can
+            be integrated in the future.
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h2>
+                MedEase
+            </h2>
+
+            <p>
+                Your trusted online pharmacy for convenient healthcare.
+            </p>
+
+            <p>
+                © 2026 MedEase. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           CART
+        ========================== */
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("medeaseCart")
+            ) || [];
+
+
+        /* =========================
+           CART COUNT
+        ========================== */
+
+        function updateCartCount() {
+
+            let count = 0;
+
+            cart.forEach(function(item) {
+
+                count += item.quantity;
+
+            });
+
+            const cartCount =
+                document.getElementById("cartCount");
+
+            if (cartCount) {
+
+                cartCount.textContent =
+                    count;
+
+            }
+
+        }
+
+
+        /* =========================
+           ADD MEDICINE
+        ========================== */
+
+        function addMedicine(name, price) {
+
+            const existing =
+                cart.find(function(item) {
+
+                    return item.name === name;
+
+                });
+
+
+            if (existing) {
+
+                existing.quantity++;
+
+            } else {
+
+                cart.push({
+
+                    name: name,
+
+                    price: price,
+
+                    quantity: 1
+
+                });
+
+            }
+
+
+            localStorage.setItem(
+                "medeaseCart",
+                JSON.stringify(cart)
+            );
+
+
+            updateCartCount();
+
+
+            alert(
+                name + " added to cart! 💊"
+            );
+
+        }
+
+
+        /* =========================
+           SEARCH STOCK
+        ========================== */
+
+        const stockSearch =
+            document.getElementById("stockSearch");
+
+        const stockSearchBtn =
+            document.getElementById("stockSearchBtn");
+
+
+        function searchStock() {
+
+            const value =
+                stockSearch.value
+                .trim()
+                .toLowerCase();
+
+
+            const cards =
+                document.querySelectorAll(
+                    ".stock-card"
+                );
+
+
+            cards.forEach(function(card) {
+
+                const medicine =
+                    card.getAttribute(
+                        "data-medicine"
+                    );
+
+
+                if (
+                    value === "" ||
+                    medicine.includes(value)
+                ) {
+
+                    card.style.display =
+                        "block";
+
+                } else {
+
+                    card.style.display =
+                        "none";
+
+                }
+
+            });
+
+        }
+
+
+        stockSearchBtn.addEventListener(
+            "click",
+            searchStock
+        );
+
+
+        stockSearch.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    searchStock();
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           INITIALIZE
+        ========================== */
+
+        updateCartCount();
+
+    </script>
+
+
+</body>
+
+</html>
