@@ -1,529 +1,649 @@
-/* =========================================
-   MEDEASE - ONLINE PHARMACY
-   MAIN JAVASCRIPT
-========================================= */
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MedEase - Place Order</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
 
 
-/* =========================================
-   CART DATA
-========================================= */
+<body>
 
-let cart = JSON.parse(localStorage.getItem("medeaseCart")) || [];
+    <!-- =========================
+         NAVIGATION BAR
+    ========================== -->
 
+    <header>
 
-/* =========================================
-   ELEMENTS
-========================================= */
+        <nav class="navbar">
 
-const cartCount = document.getElementById("cartCount");
-const cartBtn = document.getElementById("cartBtn");
-
-const addCartButtons = document.querySelectorAll(".add-cart");
-
-const searchInput = document.getElementById("searchInput");
-const searchBtn = document.getElementById("searchBtn");
-const searchMessage = document.getElementById("searchMessage");
-
-const orderMedicinesBtn =
-    document.getElementById("orderMedicinesBtn");
-
-const browseCategoriesBtn =
-    document.getElementById("browseCategoriesBtn");
-
-const loginBtn =
-    document.getElementById("loginBtn");
-
-const uploadPrescriptionBtn =
-    document.getElementById("uploadPrescriptionBtn");
-
-const prescriptionFile =
-    document.getElementById("prescriptionFile");
-
-const fileName =
-    document.getElementById("fileName");
+            <div class="logo">
+                MedEase
+            </div>
 
 
-/* =========================================
-   CART COUNT
-========================================= */
+            <div class="nav-links">
 
-function updateCartCount() {
+                <a href="index.html">
+                    Home
+                </a>
 
-    let total = 0;
+                <a href="index.html#medicines">
+                    Medicines
+                </a>
 
-    cart.forEach(function (item) {
-        total += item.quantity;
-    });
+                <a href="index.html#categories">
+                    Categories
+                </a>
 
-    if (cartCount) {
-        cartCount.textContent = total;
-    }
-}
+                <a href="index.html#prescription">
+                    Prescription
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+                <a href="cart.html"
+                   class="cart-btn">
+
+                    Cart
+                    <span id="cartCount">0</span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
 
 
-/* =========================================
-   SAVE CART
-========================================= */
 
-function saveCart() {
+    <!-- =========================
+         ORDER PAGE
+    ========================== -->
 
-    localStorage.setItem(
-        "medeaseCart",
-        JSON.stringify(cart)
-    );
+    <main class="order-page">
 
-    updateCartCount();
-}
+        <div class="order-container">
 
 
-/* =========================================
-   ADD TO CART
-========================================= */
+            <!-- PAGE TITLE -->
 
-addCartButtons.forEach(function (button) {
+            <div class="order-heading">
 
-    button.addEventListener("click", function (event) {
+                <h1>
+                    Place Your Order
+                </h1>
 
-        event.preventDefault();
-        event.stopPropagation();
+                <p>
+                    Enter your delivery details to complete your medicine order.
+                </p>
 
-        const productName =
-            button.getAttribute("data-product");
+            </div>
 
-        const productPrice =
-            Number(button.getAttribute("data-price"));
 
-        if (!productName || !productPrice) {
-            return;
+
+            <!-- =========================
+                 ORDER FORM
+            ========================== -->
+
+            <form id="orderForm">
+
+
+                <!-- CUSTOMER DETAILS -->
+
+                <section class="order-section">
+
+                    <h2>
+                        Customer Details
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label for="customerName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="customerName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Enter phone number"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter email address"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================
+                     DELIVERY ADDRESS
+                ========================== -->
+
+                <section class="order-section">
+
+                    <h2>
+                        Delivery Address
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label for="address">
+                            Address
+                        </label>
+
+                        <textarea
+                            id="address"
+                            rows="4"
+                            placeholder="Enter your complete address"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="city">
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="Enter city"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="pincode">
+                                Pincode
+                            </label>
+
+                            <input
+                                type="text"
+                                id="pincode"
+                                placeholder="Enter pincode"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================
+                     PAYMENT
+                ========================== -->
+
+                <section class="order-section">
+
+                    <h2>
+                        Payment Method
+                    </h2>
+
+
+                    <div class="payment-options">
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="Cash on Delivery"
+                                checked
+                            >
+
+                            <span>
+                                💵 Cash on Delivery
+                            </span>
+
+                        </label>
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="UPI"
+                            >
+
+                            <span>
+                                📱 UPI
+                            </span>
+
+                        </label>
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="Card"
+                            >
+
+                            <span>
+                                💳 Card
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================
+                     ORDER SUMMARY
+                ========================== -->
+
+                <section class="order-section">
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <div id="orderItems"
+                         class="order-items">
+
+                        <!-- Items will appear here -->
+
+                    </div>
+
+
+                    <div class="order-total">
+
+                        <span>
+                            Total Amount
+                        </span>
+
+                        <strong id="orderTotal">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================
+                     PLACE ORDER
+                ========================== -->
+
+                <button
+                    type="submit"
+                    class="primary-btn place-order-btn">
+
+                    Place Order 💊
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h2>
+                MedEase
+            </h2>
+
+            <p>
+                Your trusted online pharmacy for safe and convenient healthcare.
+            </p>
+
+            <p>
+                © 2026 MedEase. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================
+         ORDER JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           GET CART
+        ========================== */
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("medeaseCart")
+            ) || [];
+
+
+        /* =========================
+           ELEMENTS
+        ========================== */
+
+        const orderItems =
+            document.getElementById("orderItems");
+
+        const orderTotal =
+            document.getElementById("orderTotal");
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+        const orderForm =
+            document.getElementById("orderForm");
+
+
+        /* =========================
+           CART COUNT
+        ========================== */
+
+        let totalQuantity = 0;
+
+        cart.forEach(function(item) {
+
+            totalQuantity += item.quantity;
+
+        });
+
+
+        if (cartCount) {
+
+            cartCount.textContent =
+                totalQuantity;
+
         }
 
-        const existingProduct =
-            cart.find(function (item) {
-                return item.name === productName;
-            });
 
+        /* =========================
+           DISPLAY ORDER ITEMS
+        ========================== */
 
-        if (existingProduct) {
+        let total = 0;
 
-            existingProduct.quantity++;
-
-        } else {
-
-            cart.push({
-                name: productName,
-                price: productPrice,
-                quantity: 1
-            });
-
-        }
-
-
-        saveCart();
-
-
-        const originalText =
-            button.textContent;
-
-        button.textContent = "Added ✓";
-
-        button.disabled = true;
-
-
-        setTimeout(function () {
-
-            button.textContent =
-                originalText;
-
-            button.disabled = false;
-
-        }, 1000);
-
-    });
-
-});
-
-
-/* =========================================
-   CART BUTTON
-========================================= */
-
-if (cartBtn) {
-
-    cartBtn.addEventListener("click", function () {
 
         if (cart.length === 0) {
 
-            alert("Your cart is empty. Please add a medicine first. 💊");
+            orderItems.innerHTML = `
+                <p>
+                    Your cart is empty.
+                </p>
+            `;
 
         } else {
 
-            window.location.href = "cart.html";
+            cart.forEach(function(item) {
 
-        }
+                const itemTotal =
+                    item.price * item.quantity;
 
-    });
 
-}
+                total += itemTotal;
 
 
-/* =========================================
-   SEARCH FUNCTION
-========================================= */
+                const itemDiv =
+                    document.createElement("div");
 
-function performSearch() {
 
-    if (!searchInput) {
-        return;
-    }
+                itemDiv.className =
+                    "order-item";
 
-    const value =
-        searchInput.value.trim().toLowerCase();
 
-    const products =
-        document.querySelectorAll(".product-card");
+                itemDiv.innerHTML = `
 
+                    <div>
 
-    if (value === "") {
+                        <strong>
+                            ${item.name}
+                        </strong>
 
-        if (searchMessage) {
-            searchMessage.textContent =
-                "Please enter a medicine name.";
-        }
+                        <p>
+                            Quantity: ${item.quantity}
+                        </p>
 
-        products.forEach(function (product) {
-            product.style.display = "";
-        });
+                    </div>
 
-        return;
-    }
+                    <strong>
+                        ₹${itemTotal}
+                    </strong>
 
+                `;
 
-    let found = false;
 
+                orderItems.appendChild(itemDiv);
 
-    products.forEach(function (product) {
-
-        const productName =
-            (
-                product.getAttribute("data-name") || ""
-            ).toLowerCase();
-
-
-        if (productName.includes(value)) {
-
-            product.style.display = "";
-            found = true;
-
-        } else {
-
-            product.style.display = "none";
-
-        }
-
-    });
-
-
-    const medicinesSection =
-        document.getElementById("medicines");
-
-
-    if (medicinesSection) {
-
-        medicinesSection.scrollIntoView({
-            behavior: "smooth"
-        });
-
-    }
-
-
-    if (searchMessage) {
-
-        if (found) {
-
-            searchMessage.textContent =
-                "✓ Product found!";
-
-        } else {
-
-            searchMessage.textContent =
-                "No matching product found.";
-
-        }
-
-    }
-
-}
-
-
-/* Search button */
-
-if (searchBtn) {
-
-    searchBtn.addEventListener(
-        "click",
-        performSearch
-    );
-
-}
-
-
-/* Search using Enter */
-
-if (searchInput) {
-
-    searchInput.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (event.key === "Enter") {
-                performSearch();
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   ORDER MEDICINES BUTTON
-========================================= */
-
-if (orderMedicinesBtn) {
-
-    orderMedicinesBtn.addEventListener(
-        "click",
-        function () {
-
-            const medicines =
-                document.getElementById("medicines");
-
-            if (medicines) {
-
-                medicines.scrollIntoView({
-                    behavior: "smooth"
-                });
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   BROWSE CATEGORIES BUTTON
-========================================= */
-
-if (browseCategoriesBtn) {
-
-    browseCategoriesBtn.addEventListener(
-        "click",
-        function () {
-
-            const categories =
-                document.getElementById("categories");
-
-            if (categories) {
-
-                categories.scrollIntoView({
-                    behavior: "smooth"
-                });
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   LOGIN BUTTON
-========================================= */
-
-if (loginBtn) {
-
-    loginBtn.addEventListener(
-        "click",
-        function () {
-
-            window.location.href =
-                "login.html";
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   VIEW PRODUCT
-========================================= */
-
-function viewProduct(productName) {
-
-    window.location.href =
-        "medicine-details.html?product=" +
-        encodeURIComponent(productName);
-
-}
-
-
-/* =========================================
-   CATEGORY CARDS
-========================================= */
-
-const categoryCards =
-    document.querySelectorAll(".category-card");
-
-
-categoryCards.forEach(function (card) {
-
-    card.addEventListener("click", function () {
-
-        const categoryTitle =
-            card.querySelector("h3");
-
-
-        if (!categoryTitle) {
-            return;
-        }
-
-
-        const categoryName =
-            categoryTitle.textContent.trim();
-
-
-        if (searchInput) {
-
-            searchInput.value =
-                categoryName;
-
-        }
-
-
-        const searchSection =
-            document.querySelector(".search-section");
-
-
-        if (searchSection) {
-
-            searchSection.scrollIntoView({
-                behavior: "smooth"
             });
 
         }
 
-    });
 
-});
+        /* =========================
+           SHOW TOTAL
+        ========================== */
 
-
-/* =========================================
-   PRESCRIPTION UPLOAD
-========================================= */
-
-if (
-    uploadPrescriptionBtn &&
-    prescriptionFile
-) {
-
-    uploadPrescriptionBtn.addEventListener(
-        "click",
-        function () {
-
-            prescriptionFile.click();
-
-        }
-    );
-
-}
+        orderTotal.textContent =
+            "₹" + total;
 
 
-if (prescriptionFile) {
 
-    prescriptionFile.addEventListener(
-        "change",
-        function () {
+        /* =========================
+           PLACE ORDER
+        ========================== */
 
-            if (
-                prescriptionFile.files &&
-                prescriptionFile.files.length > 0
-            ) {
-
-                const selectedFile =
-                    prescriptionFile.files[0];
-
-
-                if (fileName) {
-
-                    fileName.textContent =
-                        "✓ Selected: " +
-                        selectedFile.name;
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   NAVIGATION LINKS
-========================================= */
-
-const navLinks =
-    document.querySelectorAll(
-        ".nav-links a"
-    );
-
-
-navLinks.forEach(function (link) {
-
-    link.addEventListener("click", function (event) {
-
-        const href =
-            link.getAttribute("href");
-
-
-        if (
-            href &&
-            href.startsWith("#")
-        ) {
-
-            const section =
-                document.querySelector(href);
-
-
-            if (section) {
+        orderForm.addEventListener(
+            "submit",
+            function(event) {
 
                 event.preventDefault();
 
-                section.scrollIntoView({
-                    behavior: "smooth"
-                });
+
+                if (cart.length === 0) {
+
+                    alert(
+                        "Your cart is empty. Please add medicines first."
+                    );
+
+                    window.location.href =
+                        "index.html#medicines";
+
+                    return;
+
+                }
+
+
+                const name =
+                    document
+                    .getElementById("customerName")
+                    .value;
+
+
+                const phone =
+                    document
+                    .getElementById("phone")
+                    .value;
+
+
+                const email =
+                    document
+                    .getElementById("email")
+                    .value;
+
+
+                const address =
+                    document
+                    .getElementById("address")
+                    .value;
+
+
+                const city =
+                    document
+                    .getElementById("city")
+                    .value;
+
+
+                const pincode =
+                    document
+                    .getElementById("pincode")
+                    .value;
+
+
+                const payment =
+                    document.querySelector(
+                        'input[name="payment"]:checked'
+                    ).value;
+
+
+                /* =========================
+                   CREATE ORDER ID
+                ========================== */
+
+                const orderId =
+                    "MED" +
+                    Date.now()
+                    .toString()
+                    .slice(-6);
+
+
+                /* =========================
+                   SAVE ORDER
+                ========================== */
+
+                const orderData = {
+
+                    orderId: orderId,
+
+                    customerName: name,
+
+                    phone: phone,
+
+                    email: email,
+
+                    address: address,
+
+                    city: city,
+
+                    pincode: pincode,
+
+                    payment: payment,
+
+                    items: cart,
+
+                    total: total,
+
+                    status: "Order Placed",
+
+                    date:
+                        new Date()
+                        .toLocaleString()
+
+                };
+
+
+                localStorage.setItem(
+                    "medeaseOrder",
+                    JSON.stringify(orderData)
+                );
+
+
+                /* =========================
+                   CLEAR CART
+                ========================== */
+
+                localStorage.removeItem(
+                    "medeaseCart"
+                );
+
+
+                /* =========================
+                   GO TO SUCCESS PAGE
+                ========================== */
+
+                window.location.href =
+                    "order-success.html";
 
             }
+        );
 
-        }
-
-    });
-
-});
+    </script>
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
+</body>
 
-updateCartCount();
-
-
-console.log(
-    "MedEase loaded successfully 💊"
-);
+</html>
