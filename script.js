@@ -1,91 +1,105 @@
-/* ================================
-MEDEASE PHARMACY WEBSITE
-JAVASCRIPT
-================================ */
+/* =========================================
+   MEDEASE - ONLINE PHARMACY
+   MAIN JAVASCRIPT
+========================================= */
 
-/* ================================
-CART
-================================ */
 
-let cart =
-JSON.parse(
-localStorage.getItem("medeaseCart")
-) || [];
+/* =========================================
+   CART DATA
+========================================= */
 
-const addButtons =
-document.querySelectorAll(".add-cart");
+let cart = JSON.parse(localStorage.getItem("medeaseCart")) || [];
 
-const cartCountElement =
-document.getElementById("cartCount");
 
-const cartButton =
-document.getElementById("cartBtn");
+/* =========================================
+   ELEMENTS
+========================================= */
 
-/* ================================
-UPDATE CART COUNT
-================================ */
+const cartCount = document.getElementById("cartCount");
+const cartBtn = document.getElementById("cartBtn");
+
+const addCartButtons = document.querySelectorAll(".add-cart");
+
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+const searchMessage = document.getElementById("searchMessage");
+
+const orderMedicinesBtn =
+    document.getElementById("orderMedicinesBtn");
+
+const browseCategoriesBtn =
+    document.getElementById("browseCategoriesBtn");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const uploadPrescriptionBtn =
+    document.getElementById("uploadPrescriptionBtn");
+
+const prescriptionFile =
+    document.getElementById("prescriptionFile");
+
+const fileName =
+    document.getElementById("fileName");
+
+
+/* =========================================
+   CART COUNT
+========================================= */
 
 function updateCartCount() {
 
-```
-let totalItems = 0;
+    let total = 0;
 
-cart.forEach(function(item) {
+    cart.forEach(function (item) {
+        total += item.quantity;
+    });
 
-    totalItems += item.quantity;
-
-});
-
-if (cartCountElement) {
-
-    cartCountElement.innerText =
-        totalItems;
-
-}
-```
-
+    if (cartCount) {
+        cartCount.textContent = total;
+    }
 }
 
-/* ================================
-SAVE CART
-================================ */
+
+/* =========================================
+   SAVE CART
+========================================= */
 
 function saveCart() {
 
-```
-localStorage.setItem(
-    "medeaseCart",
-    JSON.stringify(cart)
-);
+    localStorage.setItem(
+        "medeaseCart",
+        JSON.stringify(cart)
+    );
 
-updateCartCount();
-```
-
+    updateCartCount();
 }
 
-/* ================================
-ADD TO CART
-================================ */
 
-addButtons.forEach(function(button) {
+/* =========================================
+   ADD TO CART
+========================================= */
 
-```
-button.addEventListener(
-    "click",
-    function() {
+addCartButtons.forEach(function (button) {
+
+    button.addEventListener("click", function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
 
         const productName =
-            button.dataset.product;
+            button.getAttribute("data-product");
 
         const productPrice =
-            Number(button.dataset.price);
+            Number(button.getAttribute("data-price"));
 
+        if (!productName || !productPrice) {
+            return;
+        }
 
         const existingProduct =
-            cart.find(function(item) {
-
+            cart.find(function (item) {
                 return item.name === productName;
-
             });
 
 
@@ -96,13 +110,9 @@ button.addEventListener(
         } else {
 
             cart.push({
-
                 name: productName,
-
                 price: productPrice,
-
                 quantity: 1
-
             });
 
         }
@@ -111,291 +121,279 @@ button.addEventListener(
         saveCart();
 
 
-        button.innerText =
-            "Added ✓";
+        const originalText =
+            button.textContent;
+
+        button.textContent = "Added ✓";
+
+        button.disabled = true;
 
 
-        setTimeout(function() {
+        setTimeout(function () {
 
-            button.innerText =
-                "Add +";
+            button.textContent =
+                originalText;
 
-        }, 1200);
+            button.disabled = false;
 
-    }
-);
-```
+        }, 1000);
+
+    });
 
 });
 
-/* ================================
-CART BUTTON
-================================ */
 
-if (cartButton) {
+/* =========================================
+   CART BUTTON
+========================================= */
 
-```
-cartButton.addEventListener(
-    "click",
-    function() {
+if (cartBtn) {
+
+    cartBtn.addEventListener("click", function () {
 
         if (cart.length === 0) {
 
-            alert(
-                "Your cart is empty. 💊"
-            );
+            alert("Your cart is empty. Please add a medicine first. 💊");
 
         } else {
 
-            window.location.href =
-                "cart.html";
+            window.location.href = "cart.html";
 
         }
 
-    }
-);
-```
+    });
 
 }
 
-/* ================================
-SEARCH
-================================ */
 
-const searchInput =
-document.getElementById(
-"searchInput"
-);
-
-const searchButton =
-document.getElementById(
-"searchBtn"
-);
-
-const searchMessage =
-document.getElementById(
-"searchMessage"
-);
+/* =========================================
+   SEARCH FUNCTION
+========================================= */
 
 function performSearch() {
 
-```
-const searchValue =
-    searchInput.value
-    .trim()
-    .toLowerCase();
-
-
-const products =
-    document.querySelectorAll(
-        ".product-card"
-    );
-
-
-if (searchValue === "") {
-
-    searchMessage.innerText =
-        "Please enter a medicine or product name.";
-
-    return;
-
-}
-
-
-let found = false;
-
-
-products.forEach(function(product) {
-
-    const productName =
-        product.dataset.name.toLowerCase();
-
-
-    if (
-        productName.includes(searchValue)
-    ) {
-
-        product.style.display =
-            "block";
-
-        found = true;
-
-    } else {
-
-        product.style.display =
-            "none";
-
+    if (!searchInput) {
+        return;
     }
 
-});
+    const value =
+        searchInput.value.trim().toLowerCase();
+
+    const products =
+        document.querySelectorAll(".product-card");
 
 
-document
-    .querySelector("#medicines")
-    .scrollIntoView({
-        behavior: "smooth"
+    if (value === "") {
+
+        if (searchMessage) {
+            searchMessage.textContent =
+                "Please enter a medicine name.";
+        }
+
+        products.forEach(function (product) {
+            product.style.display = "";
+        });
+
+        return;
+    }
+
+
+    let found = false;
+
+
+    products.forEach(function (product) {
+
+        const productName =
+            (
+                product.getAttribute("data-name") || ""
+            ).toLowerCase();
+
+
+        if (productName.includes(value)) {
+
+            product.style.display = "";
+            found = true;
+
+        } else {
+
+            product.style.display = "none";
+
+        }
+
     });
 
 
-if (found) {
+    const medicinesSection =
+        document.getElementById("medicines");
 
-    searchMessage.innerText =
-        "✓ Product found!";
 
-} else {
+    if (medicinesSection) {
 
-    searchMessage.innerText =
-        "No matching product found.";
+        medicinesSection.scrollIntoView({
+            behavior: "smooth"
+        });
 
-}
-```
+    }
 
-}
 
-if (searchButton) {
+    if (searchMessage) {
 
-```
-searchButton.addEventListener(
-    "click",
-    performSearch
-);
-```
+        if (found) {
 
-}
+            searchMessage.textContent =
+                "✓ Product found!";
 
-if (searchInput) {
+        } else {
 
-```
-searchInput.addEventListener(
-    "keypress",
-    function(event) {
-
-        if (event.key === "Enter") {
-
-            performSearch();
+            searchMessage.textContent =
+                "No matching product found.";
 
         }
 
     }
-);
-```
 
 }
 
-/* ================================
-ORDER MEDICINES
-================================ */
 
-const orderButton =
-document.getElementById(
-"orderMedicinesBtn"
-);
+/* Search button */
 
-if (orderButton) {
+if (searchBtn) {
 
-```
-orderButton.addEventListener(
-    "click",
-    function() {
-
-        document
-            .querySelector("#medicines")
-            .scrollIntoView({
-                behavior: "smooth"
-            });
-
-    }
-);
-```
+    searchBtn.addEventListener(
+        "click",
+        performSearch
+    );
 
 }
 
-/* ================================
-BROWSE CATEGORIES
-================================ */
 
-const browseButton =
-document.getElementById(
-"browseCategoriesBtn"
-);
+/* Search using Enter */
 
-if (browseButton) {
+if (searchInput) {
 
-```
-browseButton.addEventListener(
-    "click",
-    function() {
+    searchInput.addEventListener(
+        "keydown",
+        function (event) {
 
-        document
-            .querySelector("#categories")
-            .scrollIntoView({
-                behavior: "smooth"
-            });
+            if (event.key === "Enter") {
+                performSearch();
+            }
 
-    }
-);
-```
+        }
+    );
 
 }
 
-/* ================================
-LOGIN
-================================ */
 
-const loginButton =
-document.getElementById(
-"loginBtn"
-);
+/* =========================================
+   ORDER MEDICINES BUTTON
+========================================= */
 
-if (loginButton) {
+if (orderMedicinesBtn) {
 
-```
-loginButton.addEventListener(
-    "click",
-    function() {
+    orderMedicinesBtn.addEventListener(
+        "click",
+        function () {
 
-        window.location.href =
-            "login.html";
+            const medicines =
+                document.getElementById("medicines");
 
-    }
-);
-```
+            if (medicines) {
+
+                medicines.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+    );
 
 }
 
-/* ================================
-VIEW PRODUCT DETAILS
-================================ */
+
+/* =========================================
+   BROWSE CATEGORIES BUTTON
+========================================= */
+
+if (browseCategoriesBtn) {
+
+    browseCategoriesBtn.addEventListener(
+        "click",
+        function () {
+
+            const categories =
+                document.getElementById("categories");
+
+            if (categories) {
+
+                categories.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
+
+if (loginBtn) {
+
+    loginBtn.addEventListener(
+        "click",
+        function () {
+
+            window.location.href =
+                "login.html";
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   VIEW PRODUCT
+========================================= */
 
 function viewProduct(productName) {
 
-```
-window.location.href =
-    "medicine-details.html?product=" +
-    encodeURIComponent(productName);
-```
+    window.location.href =
+        "medicine-details.html?product=" +
+        encodeURIComponent(productName);
 
 }
 
-/* ================================
-CATEGORY CARDS
-================================ */
+
+/* =========================================
+   CATEGORY CARDS
+========================================= */
 
 const categoryCards =
-document.querySelectorAll(
-".category-card"
-);
+    document.querySelectorAll(".category-card");
 
-categoryCards.forEach(function(card) {
 
-```
-card.addEventListener(
-    "click",
-    function() {
+categoryCards.forEach(function (card) {
+
+    card.addEventListener("click", function () {
+
+        const categoryTitle =
+            card.querySelector("h3");
+
+
+        if (!categoryTitle) {
+            return;
+        }
+
 
         const categoryName =
-            card.querySelector("h3")
-            .innerText;
+            categoryTitle.textContent.trim();
 
 
         if (searchInput) {
@@ -406,90 +404,126 @@ card.addEventListener(
         }
 
 
-        document
-            .querySelector(
-                ".search-section"
-            )
-            .scrollIntoView({
+        const searchSection =
+            document.querySelector(".search-section");
+
+
+        if (searchSection) {
+
+            searchSection.scrollIntoView({
                 behavior: "smooth"
             });
 
-    }
-);
-```
+        }
+
+    });
 
 });
 
-/* ================================
-PRESCRIPTION UPLOAD
-================================ */
 
-const uploadButton =
-document.getElementById(
-"uploadPrescriptionBtn"
-);
-
-const prescriptionFile =
-document.getElementById(
-"prescriptionFile"
-);
-
-const fileName =
-document.getElementById(
-"fileName"
-);
+/* =========================================
+   PRESCRIPTION UPLOAD
+========================================= */
 
 if (
-uploadButton &&
-prescriptionFile
+    uploadPrescriptionBtn &&
+    prescriptionFile
 ) {
 
-```
-uploadButton.addEventListener(
-    "click",
-    function() {
+    uploadPrescriptionBtn.addEventListener(
+        "click",
+        function () {
 
-        prescriptionFile.click();
+            prescriptionFile.click();
 
-    }
-);
-```
+        }
+    );
 
 }
+
 
 if (prescriptionFile) {
 
-```
-prescriptionFile.addEventListener(
-    "change",
-    function() {
+    prescriptionFile.addEventListener(
+        "change",
+        function () {
 
-        if (
-            prescriptionFile.files.length > 0
-        ) {
+            if (
+                prescriptionFile.files &&
+                prescriptionFile.files.length > 0
+            ) {
 
-            fileName.innerText =
-                "✓ Selected: " +
-                prescriptionFile.files[0].name;
+                const selectedFile =
+                    prescriptionFile.files[0];
+
+
+                if (fileName) {
+
+                    fileName.textContent =
+                        "✓ Selected: " +
+                        selectedFile.name;
+
+                }
+
+            }
 
         }
-
-    }
-);
-```
+    );
 
 }
 
-/* ================================
-INITIAL CART COUNT
-================================ */
+
+/* =========================================
+   NAVIGATION LINKS
+========================================= */
+
+const navLinks =
+    document.querySelectorAll(
+        ".nav-links a"
+    );
+
+
+navLinks.forEach(function (link) {
+
+    link.addEventListener("click", function (event) {
+
+        const href =
+            link.getAttribute("href");
+
+
+        if (
+            href &&
+            href.startsWith("#")
+        ) {
+
+            const section =
+                document.querySelector(href);
+
+
+            if (section) {
+
+                event.preventDefault();
+
+                section.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+
+    });
+
+});
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
 
 updateCartCount();
 
-/* ================================
-CONSOLE
-================================ */
 
 console.log(
-"MedEase Pharmacy Website loaded successfully! 💊"
+    "MedEase loaded successfully 💊"
 );
