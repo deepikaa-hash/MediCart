@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MedEase - Place Order</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVIGATION BAR
+    ========================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                MedEase
+            </div>
+
+
+            <div class="nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="index.html#medicines">
+                    Medicines
+                </a>
+
+                <a href="index.html#categories">
+                    Categories
+                </a>
+
+                <a href="index.html#prescription">
+                    Prescription
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+                <a href="cart.html"
+                   class="cart-btn">
+
+                    Cart
+                    <span id="cartCount">0</span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         ORDER PAGE
+    ========================== -->
+
+    <main class="order-page">
+
+        <div class="order-container">
+
+
+            <!-- PAGE TITLE -->
+
+            <div class="order-heading">
+
+                <h1>
+                    Place Your Order
+                </h1>
+
+                <p>
+                    Enter your delivery details to complete your medicine order.
+                </p>
+
+            </div>
+
+
+
+            <!-- =========================
+                 ORDER FORM
+            ========================== -->
+
+            <form id="orderForm">
+
+
+                <!-- CUSTOMER DETAILS -->
+
+                <section class="order-section">
+
+                    <h2>
+                        Customer Details
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label for="customerName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="customerName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Enter phone number"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter email address"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================
+                     DELIVERY ADDRESS
+                ========================== -->
+
+                <section class="order-section">
+
+                    <h2>
+                        Delivery Address
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label for="address">
+                            Address
+                        </label>
+
+                        <textarea
+                            id="address"
+                            rows="4"
+                            placeholder="Enter your complete address"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="city">
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="Enter city"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="pincode">
+                                Pincode
+                            </label>
+
+                            <input
+                                type="text"
+                                id="pincode"
+                                placeholder="Enter pincode"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================
+                     PAYMENT
+                ========================== -->
+
+                <section class="order-section">
+
+                    <h2>
+                        Payment Method
+                    </h2>
+
+
+                    <div class="payment-options">
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="Cash on Delivery"
+                                checked
+                            >
+
+                            <span>
+                                💵 Cash on Delivery
+                            </span>
+
+                        </label>
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="UPI"
+                            >
+
+                            <span>
+                                📱 UPI
+                            </span>
+
+                        </label>
+
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="Card"
+                            >
+
+                            <span>
+                                💳 Card
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================
+                     ORDER SUMMARY
+                ========================== -->
+
+                <section class="order-section">
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <div id="orderItems"
+                         class="order-items">
+
+                        <!-- Items will appear here -->
+
+                    </div>
+
+
+                    <div class="order-total">
+
+                        <span>
+                            Total Amount
+                        </span>
+
+                        <strong id="orderTotal">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================
+                     PLACE ORDER
+                ========================== -->
+
+                <button
+                    type="submit"
+                    class="primary-btn place-order-btn">
+
+                    Place Order 💊
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h2>
+                MedEase
+            </h2>
+
+            <p>
+                Your trusted online pharmacy for safe and convenient healthcare.
+            </p>
+
+            <p>
+                © 2026 MedEase. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================
+         ORDER JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           GET CART
+        ========================== */
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("medeaseCart")
+            ) || [];
+
+
+        /* =========================
+           ELEMENTS
+        ========================== */
+
+        const orderItems =
+            document.getElementById("orderItems");
+
+        const orderTotal =
+            document.getElementById("orderTotal");
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+        const orderForm =
+            document.getElementById("orderForm");
+
+
+        /* =========================
+           CART COUNT
+        ========================== */
+
+        let totalQuantity = 0;
+
+        cart.forEach(function(item) {
+
+            totalQuantity += item.quantity;
+
+        });
+
+
+        if (cartCount) {
+
+            cartCount.textContent =
+                totalQuantity;
+
+        }
+
+
+        /* =========================
+           DISPLAY ORDER ITEMS
+        ========================== */
+
+        let total = 0;
+
+
+        if (cart.length === 0) {
+
+            orderItems.innerHTML = `
+                <p>
+                    Your cart is empty.
+                </p>
+            `;
+
+        } else {
+
+            cart.forEach(function(item) {
+
+                const itemTotal =
+                    item.price * item.quantity;
+
+
+                total += itemTotal;
+
+
+                const itemDiv =
+                    document.createElement("div");
+
+
+                itemDiv.className =
+                    "order-item";
+
+
+                itemDiv.innerHTML = `
+
+                    <div>
+
+                        <strong>
+                            ${item.name}
+                        </strong>
+
+                        <p>
+                            Quantity: ${item.quantity}
+                        </p>
+
+                    </div>
+
+                    <strong>
+                        ₹${itemTotal}
+                    </strong>
+
+                `;
+
+
+                orderItems.appendChild(itemDiv);
+
+            });
+
+        }
+
+
+        /* =========================
+           SHOW TOTAL
+        ========================== */
+
+        orderTotal.textContent =
+            "₹" + total;
+
+
+
+        /* =========================
+           PLACE ORDER
+        ========================== */
+
+        orderForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                if (cart.length === 0) {
+
+                    alert(
+                        "Your cart is empty. Please add medicines first."
+                    );
+
+                    window.location.href =
+                        "index.html#medicines";
+
+                    return;
+
+                }
+
+
+                const name =
+                    document
+                    .getElementById("customerName")
+                    .value;
+
+
+                const phone =
+                    document
+                    .getElementById("phone")
+                    .value;
+
+
+                const email =
+                    document
+                    .getElementById("email")
+                    .value;
+
+
+                const address =
+                    document
+                    .getElementById("address")
+                    .value;
+
+
+                const city =
+                    document
+                    .getElementById("city")
+                    .value;
+
+
+                const pincode =
+                    document
+                    .getElementById("pincode")
+                    .value;
+
+
+                const payment =
+                    document.querySelector(
+                        'input[name="payment"]:checked'
+                    ).value;
+
+
+                /* =========================
+                   CREATE ORDER ID
+                ========================== */
+
+                const orderId =
+                    "MED" +
+                    Date.now()
+                    .toString()
+                    .slice(-6);
+
+
+                /* =========================
+                   SAVE ORDER
+                ========================== */
+
+                const orderData = {
+
+                    orderId: orderId,
+
+                    customerName: name,
+
+                    phone: phone,
+
+                    email: email,
+
+                    address: address,
+
+                    city: city,
+
+                    pincode: pincode,
+
+                    payment: payment,
+
+                    items: cart,
+
+                    total: total,
+
+                    status: "Order Placed",
+
+                    date:
+                        new Date()
+                        .toLocaleString()
+
+                };
+
+
+                localStorage.setItem(
+                    "medeaseOrder",
+                    JSON.stringify(orderData)
+                );
+
+
+                /* =========================
+                   CLEAR CART
+                ========================== */
+
+                localStorage.removeItem(
+                    "medeaseCart"
+                );
+
+
+                /* =========================
+                   GO TO SUCCESS PAGE
+                ========================== */
+
+                window.location.href =
+                    "order-success.html";
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
